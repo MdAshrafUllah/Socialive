@@ -1,3 +1,4 @@
+// ui only
 import 'package:flutter/material.dart';
 import 'package:socialive/presentation/ui/widgets/button_widget.dart';
 import 'package:socialive/presentation/ui/widgets/text_field_widget.dart';
@@ -72,7 +73,9 @@ class _LoginScreenState extends State<LoginScreen> {
                     activeColor: Colors.blue,
                     onChanged: (bool? val) {
                       save = !save;
-                      setState(() {}); // ------------- convert to Getx
+                      setState(() { // ------------- convert to Getx
+                        // implement ------------------------------------------------
+                      });
                     },
                   ),
                   const Text('Save Password'),
@@ -83,7 +86,9 @@ class _LoginScreenState extends State<LoginScreen> {
               ),
               elevatedBtn(
                   btnName: 'Log In',
-                  onPressed: () {}
+                  onPressed: () {
+                    // implement ------------------------------------------------
+                  }
               ),
             ],
           ),
