@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:socialive/presentation/ui/widgets/button_widget.dart';
-import 'package:socialive/presentation/ui/widgets/my_text_field.dart';
+import 'package:socialive/presentation/ui/widgets/text_field_widget.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -49,7 +49,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   ),
                 ],
               ),
-              MyTextField(controllerTE: _controllerEmail, hint: 'Input Email',),
+              TextFieldWidget(controllerTE: _controllerEmail, hint: 'Input Email',),
               const SizedBox(
                 height: 8,
               ),
@@ -64,7 +64,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   ),
                 ],
               ),
-              MyTextField(controllerTE: _controllerPassword, hint: 'Input Password',),
+              TextFieldWidget(controllerTE: _controllerPassword, hint: 'Input Password',),
               Row(
                 children: [
                   Checkbox(
