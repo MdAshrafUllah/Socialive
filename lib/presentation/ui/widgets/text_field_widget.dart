@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-class MyTextField extends StatelessWidget {
-  const MyTextField({super.key, required this.controllerTE, required this.hint});
+class TextFieldWidget extends StatelessWidget {
+  const TextFieldWidget({super.key, required this.controllerTE, required this.hint});
   final TextEditingController controllerTE;
   final String hint;
 
