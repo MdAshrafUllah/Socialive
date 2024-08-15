@@ -1,7 +1,9 @@
 // ui only
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:socialive/app/utility/app_colors.dart';
 import 'package:socialive/app/utility/font_style.dart';
+import 'package:socialive/presentation/ui/utility/assets_path.dart';
 import 'package:socialive/presentation/ui/widgets/button_widget.dart';
 import 'package:socialive/presentation/ui/widgets/text_field_widget.dart';
 
@@ -31,11 +33,11 @@ class _LoginScreenState extends State<LoginScreen> {
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 36),
           child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const SizedBox( height: 180),
+              const SizedBox(height: 180),
               Text(
                 'Welcome back!\nEnter your Email & Password',
-                textAlign: TextAlign.center,
                 style: AppFontStyle.headLineMedium,
               ),
               const SizedBox(height: 36),
@@ -50,6 +52,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 ],
               ),
               TextFieldWidget(
+                prefixIcon: AssetsPath.envelope,
                 controllerTE: _controllerEmail,
                 hint: 'Input Email',
               ),
@@ -65,10 +68,11 @@ class _LoginScreenState extends State<LoginScreen> {
                 ],
               ),
               TextFieldWidget(
+                  prefixIcon: AssetsPath.lock,
                   controllerTE: _controllerPassword,
                   hint: 'Input Password',
-                  obscure: true
-              ),
+                  obscure: true),
+              const SizedBox(height: 15),
               Row(
                 children: [
                   Checkbox(
@@ -76,7 +80,8 @@ class _LoginScreenState extends State<LoginScreen> {
                     activeColor: AppColors.primaryColor,
                     onChanged: (bool? val) {
                       save = !save;
-                      setState(() { // ------------- convert to Getx
+                      setState(() {
+                        // ------------- convert to Getx
                         // implement ------------------------------------------------
                       });
                     },
@@ -84,13 +89,12 @@ class _LoginScreenState extends State<LoginScreen> {
                   const Text('Save Password'),
                 ],
               ),
-              const SizedBox(height: 8),
+              const SizedBox(height: 15),
               elevatedBtn(
                   btnName: 'Log In',
                   onPressed: () {
                     // implement ------------------------------------------------
-                  }
-              ),
+                  }),
             ],
           ),
         ),

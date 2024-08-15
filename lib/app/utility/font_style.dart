@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:socialive/app/utility/app_colors.dart';
 
 class AppFontStyle {
   static const lobster400S24 = TextStyle(
@@ -79,10 +80,10 @@ class AppFontStyle {
     fontWeight: FontWeight.w400,
   );
 
-  static final headLineMedium = TextStyle(
+  static TextStyle headLineMedium = TextStyle(
     fontFamily: 'Inter',
     fontSize: 22,
     fontWeight: FontWeight.bold,
-    color: Colors.grey.shade700,
+    color: AppColors.secondaryColor,
   );
 }
