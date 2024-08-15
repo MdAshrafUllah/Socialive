@@ -1,5 +1,7 @@
 // ui only
 import 'package:flutter/material.dart';
+import 'package:socialive/app/utility/app_colors.dart';
+import 'package:socialive/app/utility/font_style.dart';
 import 'package:socialive/presentation/ui/widgets/button_widget.dart';
 import 'package:socialive/presentation/ui/widgets/text_field_widget.dart';
 
@@ -34,7 +36,7 @@ class _LoginScreenState extends State<LoginScreen> {
               Text(
                 'Welcome back!\nEnter your Email & Password',
                 textAlign: TextAlign.center,
-                style: TextStyle(fontSize: 20, color: Colors.grey[700]),
+                style: AppFontStyle.headLineMedium,
               ),
               const SizedBox(height: 36),
               const Row(
@@ -42,8 +44,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   SizedBox(
                     child: Text(
                       'Email',
-                      style:
-                      TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                      style: AppFontStyle.satoshi700S18,
                     ),
                   ),
                 ],
@@ -58,8 +59,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   SizedBox(
                     child: Text(
                       'Password',
-                      style:
-                      TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                      style: AppFontStyle.satoshi700S18,
                     ),
                   ),
                 ],
@@ -73,7 +73,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 children: [
                   Checkbox(
                     value: save,
-                    activeColor: Colors.blue,
+                    activeColor: AppColors.primaryColor,
                     onChanged: (bool? val) {
                       save = !save;
                       setState(() { // ------------- convert to Getx
