@@ -12,6 +12,11 @@ Widget elevatedBtn({
     width: double.maxFinite,
     child: ElevatedButton(
       onPressed: onPressed,
+      style: ElevatedButton.styleFrom(
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(10),
+        ),
+      ),
       child: Text(
         btnName,
         style: FontStyle.satoshi700S16,
