@@ -19,7 +19,7 @@ Widget elevatedBtn({
       ),
       child: Text(
         btnName,
-        style: FontStyle.satoshi700S16,
+        style: AppFontStyle.satoshi700S16,
       ),
     ),
   );
@@ -36,7 +36,7 @@ Widget textBtn({
       children: [
         Text(
           btnName,
-          style: FontStyle.satoshi700S16,
+          style: AppFontStyle.satoshi700S16,
         ),
         const SizedBox(width: 5),
         Padding(
