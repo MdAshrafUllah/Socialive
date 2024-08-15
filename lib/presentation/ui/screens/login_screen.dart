@@ -48,7 +48,10 @@ class _LoginScreenState extends State<LoginScreen> {
                   ),
                 ],
               ),
-              TextFieldWidget(controllerTE: _controllerEmail, hint: 'Input Email',),
+              TextFieldWidget(
+                controllerTE: _controllerEmail,
+                hint: 'Input Email',
+              ),
               const SizedBox(height: 8),
               const Row(
                 children: [
@@ -61,7 +64,11 @@ class _LoginScreenState extends State<LoginScreen> {
                   ),
                 ],
               ),
-              TextFieldWidget(controllerTE: _controllerPassword, hint: 'Input Password',obscure: true),
+              TextFieldWidget(
+                  controllerTE: _controllerPassword,
+                  hint: 'Input Password',
+                  obscure: true
+              ),
               Row(
                 children: [
                   Checkbox(
