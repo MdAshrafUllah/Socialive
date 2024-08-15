@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:socialive/app/utility/font_style.dart';
+import 'package:socialive/app/utility/app_font_style.dart';
 
 class LoginScreen extends StatelessWidget {
   const LoginScreen({super.key});
@@ -13,7 +13,7 @@ class LoginScreen extends StatelessWidget {
           children: [
             Text(
               'Inter your Email and password',
-              style: FontStyle.inter400S24,
+              style: AppFontStyle.inter400S24,
             )
           ],
         ),

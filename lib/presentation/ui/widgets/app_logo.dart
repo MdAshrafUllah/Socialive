@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:socialive/app/utility/font_style.dart';
+import 'package:socialive/app/utility/app_font_style.dart';
 
 class AppLogo extends StatelessWidget {
   const AppLogo({super.key});
@@ -8,7 +8,7 @@ class AppLogo extends StatelessWidget {
   Widget build(BuildContext context) {
     return const Text(
       'Socialive',
-      style: FontStyle.lobster400S24,
+      style: AppFontStyle.lobster400S24,
     );
   }
 }

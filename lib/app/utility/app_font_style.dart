@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-class FontStyle {
+class AppFontStyle {
   static const lobster400S24 = TextStyle(
     fontFamily: 'Lobster',
     fontSize: 24,
