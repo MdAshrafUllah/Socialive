@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:socialive/app/utility/app_colors.dart';
-import 'package:socialive/app/utility/font_style.dart';
+import 'package:socialive/app/utility/app_font_style.dart';
 import 'package:socialive/presentation/ui/utility/assets_path.dart';
 
 Widget elevatedBtn({
