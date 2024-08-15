@@ -1,7 +1,6 @@
 // ui only
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
-import 'package:socialive/app/utility/font_style.dart';
+import 'package:socialive/app/utility/app_font_style.dart';
 import 'package:socialive/presentation/ui/utility/assets_path.dart';
 import 'package:socialive/presentation/ui/widgets/show_alert_dialog.dart';
 import 'package:socialive/presentation/ui/widgets/button_widget.dart';
