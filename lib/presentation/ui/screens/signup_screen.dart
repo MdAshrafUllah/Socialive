@@ -74,7 +74,7 @@ class _SignupScreenState extends State<SignupScreen> {
               const Row(children: [
                 SizedBox(
                   child: Text(
-                    'Re-type Password',
+                    'Confirm Password',
                     style:
                     TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
                   ),
