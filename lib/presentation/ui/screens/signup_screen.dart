@@ -1,5 +1,6 @@
 // ui only
 import 'package:flutter/material.dart';
+import 'package:socialive/app/utility/font_style.dart';
 import 'package:socialive/presentation/ui/widgets/show_alert_dialog.dart';
 import 'package:socialive/presentation/ui/widgets/button_widget.dart';
 import 'package:socialive/presentation/ui/widgets/text_field_widget.dart';
@@ -36,7 +37,7 @@ class _SignupScreenState extends State<SignupScreen> {
               Text(
                 'Join With Us!\nEnter your Email & Password',
                 textAlign: TextAlign.center,
-                style: TextStyle(fontSize: 20, color: Colors.grey[700]),
+                style: AppFontStyle.headLineMedium,
               ),
               const SizedBox(height: 36),
               const Row(
@@ -44,8 +45,7 @@ class _SignupScreenState extends State<SignupScreen> {
                   SizedBox(
                     child: Text(
                       'Email',
-                      style:
-                      TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                      style: AppFontStyle.satoshi700S18,
                     ),
                   ),
                 ],
@@ -59,8 +59,8 @@ class _SignupScreenState extends State<SignupScreen> {
                 SizedBox(
                   child: Text(
                     'Password',
-                    style:
-                    TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                    style: AppFontStyle.satoshi700S18,
+                    //TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
                   ),
                 ),
               ],
@@ -75,8 +75,7 @@ class _SignupScreenState extends State<SignupScreen> {
                 SizedBox(
                   child: Text(
                     'Confirm Password',
-                    style:
-                    TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                    style: AppFontStyle.satoshi700S18,
                   ),
                 ),
               ],
