@@ -50,7 +50,10 @@ class _SignupScreenState extends State<SignupScreen> {
                   ),
                 ],
               ),
-              TextFieldWidget(controllerTE: _controllerEmail, hint: 'Input Email',),
+              TextFieldWidget(
+                controllerTE: _controllerEmail,
+                hint: 'Input Email',
+              ),
               const SizedBox(height: 8),
               const Row(children: [
                 SizedBox(
@@ -62,7 +65,11 @@ class _SignupScreenState extends State<SignupScreen> {
                 ),
               ],
               ),
-              TextFieldWidget(controllerTE: _controllerPassword, hint: 'Input Password',obscure: true),
+              TextFieldWidget(
+                  controllerTE: _controllerPassword,
+                  hint: 'Input Password',
+                  obscure: true
+              ),
               const SizedBox(height: 8),
               const Row(children: [
                 SizedBox(
@@ -74,7 +81,11 @@ class _SignupScreenState extends State<SignupScreen> {
                 ),
               ],
               ),
-              TextFieldWidget(controllerTE: _controllerPassword2, hint: 'Input Password',obscure: true),
+              TextFieldWidget(
+                  controllerTE: _controllerPassword2,
+                  hint: 'Input Password',
+                  obscure: true
+              ),
               const SizedBox(height: 24),
               elevatedBtn(
                   btnName: 'Sign Up',
