@@ -5,6 +5,7 @@ import 'package:socialive/presentation/ui/widgets/show_alert_dialog.dart';
 import 'package:socialive/presentation/ui/widgets/button_widget.dart';
 import 'package:socialive/presentation/ui/widgets/text_field_widget.dart';
 
+
 class SignupScreen extends StatefulWidget {
   const SignupScreen({super.key});
 
