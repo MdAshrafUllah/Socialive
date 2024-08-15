@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-class FontStyle {
+class AppFontStyle {
   static const lobster400S24 = TextStyle(
     fontFamily: 'Lobster',
     fontSize: 24,
@@ -77,5 +77,12 @@ class FontStyle {
     fontFamily: 'Inter',
     fontSize: 24,
     fontWeight: FontWeight.w400,
+  );
+
+  static final headLineMedium = TextStyle(
+    fontFamily: 'Inter',
+    fontSize: 22,
+    fontWeight: FontWeight.bold,
+    color: Colors.grey.shade700,
   );
 }
