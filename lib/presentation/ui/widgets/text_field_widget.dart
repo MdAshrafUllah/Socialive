@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 
 class TextFieldWidget extends StatelessWidget {
   const TextFieldWidget({
-    super.key, 
-    required this.controllerTE, 
-    required this.hint, 
+    super.key,
+    required this.controllerTE,
+    required this.hint,
     this.obscure=false
   });
   final TextEditingController controllerTE;
