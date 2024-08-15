@@ -7,7 +7,7 @@ class AppLogo extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return const Text(
-      'Socialive',
+      'SociaLive',
       style: AppFontStyle.lobster400S24,
     );
   }

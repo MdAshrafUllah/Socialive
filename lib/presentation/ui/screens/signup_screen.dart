@@ -1,27 +1,28 @@
 // ui only
 import 'package:flutter/material.dart';
-import 'package:socialive/app/utility/app_colors.dart';
+import 'package:socialive/app/utility/app_font_style.dart';
 import 'package:socialive/presentation/ui/utility/assets_path.dart';
+import 'package:socialive/presentation/ui/widgets/show_alert_dialog.dart';
 import 'package:socialive/presentation/ui/widgets/button_widget.dart';
 import 'package:socialive/presentation/ui/widgets/text_field_widget.dart';
-import 'package:socialive/app/utility/app_font_style.dart';
 
-class LoginScreen extends StatefulWidget {
-  const LoginScreen({super.key});
+class SignUpScreen extends StatefulWidget {
+  const SignUpScreen({super.key});
 
   @override
-  State<LoginScreen> createState() => _LoginScreenState();
+  State<SignUpScreen> createState() => _SignUpScreenState();
 }
 
-class _LoginScreenState extends State<LoginScreen> {
+class _SignUpScreenState extends State<SignUpScreen> {
   final TextEditingController _controllerEmail = TextEditingController();
   final TextEditingController _controllerPassword = TextEditingController();
-  bool save = false;
+  final TextEditingController _controllerPassword2 = TextEditingController();
 
   @override
   void dispose() {
     _controllerEmail.dispose();
     _controllerPassword.dispose();
+    _controllerPassword2.dispose();
     super.dispose();
   }
 
@@ -34,9 +35,9 @@ class _LoginScreenState extends State<LoginScreen> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const SizedBox(height: 180),
+              const SizedBox(height: 120),
               Text(
-                'Welcome back!\nEnter your Email & Password',
+                'Join With Us!\nEnter your Email & Password',
                 style: AppFontStyle.headLineMedium,
               ),
               const SizedBox(height: 36),
@@ -62,6 +63,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     child: Text(
                       'Password',
                       style: AppFontStyle.satoshi700S18,
+                      //TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
                     ),
                   ),
                 ],
@@ -71,33 +73,43 @@ class _LoginScreenState extends State<LoginScreen> {
                   controllerTE: _controllerPassword,
                   hint: 'Input Password',
                   obscure: true),
-              const SizedBox(height: 15),
-              Row(
+              const SizedBox(height: 8),
+              const Row(
                 children: [
-                  Checkbox(
-                    value: save,
-                    activeColor: AppColors.primaryColor,
-                    onChanged: (bool? val) {
-                      save = !save;
-                      setState(() {
-                        // ------------- convert to Getx
-                        // implement ------------------------------------------------
-                      });
-                    },
+                  SizedBox(
+                    child: Text(
+                      'Confirm Password',
+                      style: AppFontStyle.satoshi700S18,
+                    ),
                   ),
-                  const Text('Save Password'),
                 ],
               ),
-              const SizedBox(height: 15),
+              TextFieldWidget(
+                  prefixIcon: AssetsPath.lock,
+                  controllerTE: _controllerPassword2,
+                  hint: 'Input Password',
+                  obscure: true),
+              const SizedBox(height: 24),
               elevatedBtn(
-                  btnName: 'Log In',
-                  onPressed: () {
-                    // implement ------------------------------------------------
-                  }),
+                btnName: 'Sign Up',
+                onPressed: funcForElevatedBtn,
+              ),
             ],
           ),
         ),
       ),
     );
+  }
+
+  void funcForElevatedBtn() {
+    if (_controllerPassword.text == _controllerPassword2.text) {
+      // implement ----------------------------------------------------------------
+    } else {
+      showAlertDialog(
+        context: context,
+        title: 'Passwords did not match',
+        content: 'Please enter same passwords in 2 fields.',
+      );
+    }
   }
 }
