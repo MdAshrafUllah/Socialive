@@ -67,7 +67,7 @@ class FontStyle {
     fontWeight: FontWeight.w700,
   );
 
-  static final satoshi400S12 = TextStyle(
+  static const TextStyle satoshi400S12 = TextStyle(
     fontFamily: 'Satoshi',
     fontSize: 12,
     fontWeight: FontWeight.w700,
