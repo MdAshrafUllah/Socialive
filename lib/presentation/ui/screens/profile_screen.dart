@@ -5,7 +5,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:socialive/Data/models/user_data.dart';
 import 'package:socialive/app/utility/app_colors.dart';
-import 'package:socialive/app/utility/font_style.dart';
+import 'package:socialive/app/utility/app_font_style.dart';
 import 'package:socialive/presentation/controllers/profile_screen_controller.dart';
 import 'package:socialive/presentation/ui/utility/assets_path.dart';
 
@@ -189,7 +189,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
             const SizedBox(width: 2),
             Text(
               buttonName,
-              style: FontStyle.satoshi500S12,
+              style: AppFontStyle.satoshi500S12,
             ),
           ],
         )),
@@ -207,7 +207,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           const SizedBox(height: 38),
-          const Text("My Profile", style: FontStyle.satoshi700S20),
+          const Text("My Profile", style: AppFontStyle.satoshi700S20),
           const SizedBox(height: 20),
           Row(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -221,10 +221,10 @@ class _ProfileScreenState extends State<ProfileScreen> {
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(userdata.name, style: FontStyle.satoshi700S18),
+                  Text(userdata.name, style: AppFontStyle.satoshi700S18),
                   Text(
                     userdata.userName,
-                    style: FontStyle.satoshi400S12
+                    style: AppFontStyle.satoshi400S12
                         .copyWith(color: AppColors.textLightColor),
                   ),
                   const SizedBox(height: 8),
@@ -233,31 +233,31 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     children: [
                       Text(
                         "${userdata.numberOfPost}",
-                        style: FontStyle.satoshi500S12,
+                        style: AppFontStyle.satoshi500S12,
                       ),
                       Text(
                         "Post",
-                        style: FontStyle.satoshi400S12
+                        style: AppFontStyle.satoshi400S12
                             .copyWith(color: AppColors.textLightColor),
                       ),
                       const SizedBox(width: 8),
                       Text(
                         "${userdata.following}",
-                        style: FontStyle.satoshi500S12,
+                        style: AppFontStyle.satoshi500S12,
                       ),
                       Text(
                         "Following",
-                        style: FontStyle.satoshi400S12
+                        style: AppFontStyle.satoshi400S12
                             .copyWith(color: AppColors.textLightColor),
                       ),
                       const SizedBox(width: 8),
                       Text(
                         "${userdata.follower}",
-                        style: FontStyle.satoshi500S12,
+                        style: AppFontStyle.satoshi500S12,
                       ),
                       Text(
                         "Follower",
-                        style: FontStyle.satoshi400S12
+                        style: AppFontStyle.satoshi400S12
                             .copyWith(color: AppColors.textLightColor),
                       ),
                     ],
