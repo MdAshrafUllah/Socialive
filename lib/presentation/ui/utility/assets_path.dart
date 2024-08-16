@@ -6,4 +6,6 @@ class AssetsPath {
   static String lock = "$_basedURL/lock.svg";
   static String eye = "$_basedURL/eye.svg";
   static String eyeSlash = "$_basedURL/eye_slash.svg";
+  static String grid = "$_basedURL/Grid.svg";
+  static String list = "$_basedURL/List.svg";
 }
