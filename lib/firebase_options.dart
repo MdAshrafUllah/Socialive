@@ -50,20 +50,19 @@ class DefaultFirebaseOptions {
   }
 
   static const FirebaseOptions android = FirebaseOptions(
-    apiKey: 'AIzaSyDoYQEcMi8WRx4gJIbPiINfOCgNIoh0HI4',
-    appId: '1:1041250948880:android:85d379fbe44b78748ab795',
+    apiKey: '',
+    appId: '',
     messagingSenderId: '1041250948880',
     projectId: 'socialive-aff67',
     storageBucket: 'socialive-aff67.appspot.com',
   );
 
   static const FirebaseOptions ios = FirebaseOptions(
-    apiKey: 'AIzaSyD_Vf892-Ajy_5AcbJVqnV2hVvTbgjcwyI',
-    appId: '1:1041250948880:ios:a82a2b50596f50098ab795',
+    apiKey: '',
+    appId: '',
     messagingSenderId: '1041250948880',
     projectId: 'socialive-aff67',
     storageBucket: 'socialive-aff67.appspot.com',
     iosBundleId: 'com.ostad.socialive',
   );
-
 }
