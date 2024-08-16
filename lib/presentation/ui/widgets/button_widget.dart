@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:socialive/app/utility/app_colors.dart';
-import 'package:socialive/app/utility/font_style.dart';
+import 'package:socialive/app/utility/app_font_style.dart';
 import 'package:socialive/presentation/ui/utility/assets_path.dart';
 
 Widget elevatedBtn({
@@ -12,9 +12,14 @@ Widget elevatedBtn({
     width: double.maxFinite,
     child: ElevatedButton(
       onPressed: onPressed,
+      style: ElevatedButton.styleFrom(
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(10),
+        ),
+      ),
       child: Text(
         btnName,
-        style: FontStyle.satoshi700S16,
+        style: AppFontStyle.satoshi700S16,
       ),
     ),
   );
@@ -31,7 +36,7 @@ Widget textBtn({
       children: [
         Text(
           btnName,
-          style: FontStyle.satoshi700S16,
+          style: AppFontStyle.satoshi700S16,
         ),
         const SizedBox(width: 5),
         Padding(
