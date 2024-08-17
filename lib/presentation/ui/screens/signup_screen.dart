@@ -1,6 +1,9 @@
-// ui only
+// ui + firebase account signup code
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:socialive/app/utility/app_font_style.dart';
+import 'package:socialive/presentation/ui/screens/login_screen.dart';
 import 'package:socialive/presentation/ui/utility/assets_path.dart';
 import 'package:socialive/presentation/ui/widgets/show_alert_dialog.dart';
 import 'package:socialive/presentation/ui/widgets/button_widget.dart';
@@ -63,7 +66,6 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     child: Text(
                       'Password',
                       style: AppFontStyle.satoshi700S18,
-                      //TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
                     ),
                   ),
                 ],
@@ -92,7 +94,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
               const SizedBox(height: 24),
               elevatedBtn(
                 btnName: 'Sign Up',
-                onPressed: funcForElevatedBtn,
+                onPressed: signUpUser,
               ),
             ],
           ),
@@ -101,9 +103,46 @@ class _SignUpScreenState extends State<SignUpScreen> {
     );
   }
 
-  void funcForElevatedBtn() {
-    if (_controllerPassword.text == _controllerPassword2.text) {
-      // implement ----------------------------------------------------------------
+  void signUpUser() async{
+    if (_controllerPassword.text == _controllerPassword2.text){
+      showDialog(
+          context: context,
+          builder: (context){
+            return const Center(
+              child: CircularProgressIndicator(),
+            );
+          }
+      );
+      try{
+        await FirebaseAuth.instance.createUserWithEmailAndPassword(
+          email: _controllerEmail.text,
+          password: _controllerPassword.text,
+        );
+        if(mounted){Navigator.pop(context);}
+        Get.to(() => const LoginScreen());
+      }
+      on FirebaseAuthException catch(e){
+        print("firebase error code: ${e.code}");
+        if(mounted){
+          Navigator.pop(context); //pop circular progress
+          showAlertDialog(
+            context: context,
+            title: "Firebase Error",
+            content: "error code: ${e.code}",
+          );
+        }
+      }
+      catch(e){
+        print(e.toString());
+        if(mounted){
+          Navigator.pop(context);
+          showAlertDialog(
+            context: context,
+            title: "Error occurred!",
+            content: "error code: ${e.toString()}",
+          );
+        }
+      }
     } else {
       showAlertDialog(
         context: context,

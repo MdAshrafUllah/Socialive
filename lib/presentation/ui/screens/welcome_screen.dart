@@ -1,5 +1,7 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:socialive/presentation/ui/screens/home_screen.dart';
 import 'package:socialive/presentation/ui/screens/login_screen.dart';
 import 'package:socialive/presentation/ui/screens/signup_screen.dart';
 import 'package:socialive/presentation/ui/widgets/app_logo.dart';
@@ -31,8 +33,15 @@ class WelComeScreen extends StatelessWidget {
               ),
               textBtn(
                 btnName: 'Log In',
-                onPressed: () {
-                  Get.to(() => const LoginScreen());
+                onPressed: (){ // user will be logged in if he doesn't manually logout in homepage
+                  final User? user = FirebaseAuth.instance.currentUser;
+                  if (user != null) {
+                    print("User is logged-in in with UID: ${user.uid}");
+                    Get.to(const HomeScreen());
+                  } else {
+                    print("No user is logged-in.");
+                    Get.to(() => const LoginScreen());
+                  }
                 },
               )
             ],

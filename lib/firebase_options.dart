@@ -50,8 +50,8 @@ class DefaultFirebaseOptions {
   }
 
   static const FirebaseOptions android = FirebaseOptions(
-    apiKey: '',
-    appId: '',
+    apiKey: 'AIzaSyDoYQEcMi8WRx4gJIbPiINfOCgNIoh0HI4',
+    appId: '1:1041250948880:android:85d379fbe44b78748ab795',
     messagingSenderId: '1041250948880',
     projectId: 'socialive-aff67',
     storageBucket: 'socialive-aff67.appspot.com',

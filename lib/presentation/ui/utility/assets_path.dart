@@ -7,5 +7,8 @@ class AssetsPath {
   static String eye = "$_basedURL/eye.svg";
   static String eyeSlash = "$_basedURL/eye_slash.svg";
   static String grid = "$_basedURL/Grid.svg";
-  static String list = "$_basedURL/List.svg";
+  static String list = "$_basedURL/List.svg"; //
+  static String logout = "$_basedURL/logout.svg";
+  static String notification = "$_basedURL/notification.svg";
+  static String message = "$_basedURL/message.svg";
 }
