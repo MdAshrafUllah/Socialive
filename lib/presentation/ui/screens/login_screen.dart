@@ -1,6 +1,7 @@
-// ui only
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:socialive/app/utility/app_colors.dart';
+import 'package:socialive/presentation/controllers/login_screen_controller.dart';
 import 'package:socialive/presentation/ui/utility/assets_path.dart';
 import 'package:socialive/presentation/ui/widgets/button_widget.dart';
 import 'package:socialive/presentation/ui/widgets/text_field_widget.dart';
@@ -14,90 +15,106 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
-  final TextEditingController _controllerEmail = TextEditingController();
-  final TextEditingController _controllerPassword = TextEditingController();
-  bool save = false;
+  final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
 
-  @override
-  void dispose() {
-    _controllerEmail.dispose();
-    _controllerPassword.dispose();
-    super.dispose();
-  }
+  final LoginController _loginController = Get.find<LoginController>();
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
+    double height = MediaQuery.of(context).size.height;
     return Scaffold(
-      body: Center(
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 36),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              const SizedBox(height: 180),
-              Text(
-                'Welcome back!\nEnter your Email & Password',
-                style: AppFontStyle.headLineMedium,
-              ),
-              const SizedBox(height: 36),
-              const Row(
-                children: [
-                  SizedBox(
-                    child: Text(
-                      'Email',
-                      style: AppFontStyle.satoshi700S18,
-                    ),
-                  ),
-                ],
-              ),
-              TextFieldWidget(
-                prefixIcon: AssetsPath.envelope,
-                controllerTE: _controllerEmail,
-                hint: 'Input Email',
-              ),
-              const SizedBox(height: 8),
-              const Row(
-                children: [
-                  SizedBox(
-                    child: Text(
-                      'Password',
-                      style: AppFontStyle.satoshi700S18,
-                    ),
-                  ),
-                ],
-              ),
-              TextFieldWidget(
-                  prefixIcon: AssetsPath.lock,
-                  controllerTE: _controllerPassword,
-                  hint: 'Input Password',
-                  obscure: true),
-              const SizedBox(height: 15),
-              Row(
-                children: [
-                  Checkbox(
-                    value: save,
-                    activeColor: AppColors.primaryColor,
-                    onChanged: (bool? val) {
-                      save = !save;
-                      setState(() {
-                        // ------------- convert to Getx
-                        // implement ------------------------------------------------
-                      });
+      body: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 20),
+        child: SingleChildScrollView(
+          child: Form(
+            key: _formKey,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                SizedBox(height: height * 0.07),
+                backBtn(),
+                SizedBox(height: height * 0.07),
+                Text(
+                  'Welcome back!\nEnter your Email & Password',
+                  style: AppFontStyle.inter400S22C,
+                ),
+                const SizedBox(height: 30),
+                const Text(
+                  'Email',
+                  style: AppFontStyle.satoshi700S18,
+                ),
+                const SizedBox(height: 5),
+                TextFieldWidget(
+                  prefixIcon: AssetsPath.envelope,
+                  controllerTE: _emailController,
+                  hint: 'Input Email',
+                  validator: "Enter Your Email",
+                  keyboardType: TextInputType.emailAddress,
+                  textInputAction: TextInputAction.next,
+                ),
+                const SizedBox(height: 8),
+                const Text(
+                  'Password',
+                  style: AppFontStyle.satoshi700S18,
+                ),
+                const SizedBox(height: 5),
+                Obx(
+                  () => TextFieldWidget(
+                    prefixIcon: AssetsPath.lock,
+                    controllerTE: _passwordController,
+                    hint: 'Input Password',
+                    obscure: !_loginController.isPasswordVisible.value,
+                    suffixIcon: _loginController.isPasswordVisible.value
+                        ? AssetsPath.eye
+                        : AssetsPath.eyeSlash,
+                    textInputAction: TextInputAction.done,
+                    validator: "Enter Your Password",
+                    onTap: () {
+                      _loginController.togglePasswordVisible();
                     },
                   ),
-                  const Text('Save Password'),
-                ],
-              ),
-              const SizedBox(height: 15),
-              elevatedBtn(
+                ),
+                const SizedBox(height: 10),
+                Row(
+                  children: [
+                    Obx(
+                      () => Checkbox(
+                        value: _loginController.isSave.value,
+                        activeColor: AppColors.primaryColor,
+                        onChanged: _loginController.isSave.call,
+                      ),
+                    ),
+                    const Text('Save Password'),
+                  ],
+                ),
+                const SizedBox(height: 10),
+                elevatedBtn(
                   btnName: 'Log In',
-                  onPressed: () {
-                    // implement ------------------------------------------------
-                  }),
-            ],
+                  onPressed: _login,
+                ),
+              ],
+            ),
           ),
         ),
       ),
     );
+  }
+
+  void _login() {
+    if (_formKey.currentState!.validate()) {
+      _loginController.loginUser(
+        _emailController.text.trim(),
+        _passwordController.text.trim(),
+      );
+    }
+  }
+
+  @override
+  void dispose() {
+    _emailController.dispose();
+    _passwordController.dispose();
+    super.dispose();
   }
 }
