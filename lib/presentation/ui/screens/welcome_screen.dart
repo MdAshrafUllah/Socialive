@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:socialive/presentation/ui/screens/login_screen.dart';
-import 'package:socialive/presentation/ui/screens/sign_up_screen.dart';
+import 'package:socialive/presentation/ui/screens/auth/login_screen.dart';
+import 'package:socialive/presentation/ui/screens/auth/sign_up_screen.dart';
 import 'package:socialive/presentation/ui/widgets/app_logo.dart';
 import 'package:socialive/presentation/ui/widgets/button_widget.dart';
 

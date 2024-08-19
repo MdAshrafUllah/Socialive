@@ -3,6 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:socialive/app/utility/app_colors.dart';
 import 'package:socialive/presentation/controllers/sign_up_screen_controller.dart';
+import 'package:socialive/presentation/ui/screens/main_bottom_nev.dart';
 
 class LoginController extends GetxController {
   RxBool isPasswordVisible = false.obs;
@@ -35,7 +36,7 @@ class LoginController extends GetxController {
         backgroundColor: AppColors.successColor,
         colorText: AppColors.foregroundColor,
       );
-      // Get.offAll(() => const MainBottomNavigation());
+      Get.offAll(() => const MainBottomNavigation());
     } on FirebaseAuthException catch (e) {
       loadingController.hideLoading();
       Get.snackbar(

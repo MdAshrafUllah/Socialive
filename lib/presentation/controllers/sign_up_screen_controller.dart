@@ -3,7 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get/get.dart';
 import 'package:socialive/app/utility/app_colors.dart';
 import 'package:socialive/presentation/controllers/loading_controller.dart';
-import 'package:socialive/presentation/ui/screens/login_screen.dart';
+import 'package:socialive/presentation/ui/screens/auth/login_screen.dart';
 
 final LoadingController loadingController = Get.find<LoadingController>();
 
