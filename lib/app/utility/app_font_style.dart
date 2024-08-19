@@ -20,6 +20,13 @@ class AppFontStyle {
     fontWeight: FontWeight.w700,
   );
 
+  static TextStyle satoshi700S18C = TextStyle(
+    fontFamily: 'Satoshi',
+    fontSize: 18,
+    fontWeight: FontWeight.w700,
+    color: AppColors.secondaryColor,
+  );
+
   static const satoshi700S16 = TextStyle(
     fontFamily: 'Satoshi',
     fontSize: 16,
@@ -68,6 +75,13 @@ class AppFontStyle {
     fontWeight: FontWeight.w700,
   );
 
+  static TextStyle satoshi400S14C = TextStyle(
+    fontFamily: 'Satoshi',
+    fontSize: 14,
+    fontWeight: FontWeight.w700,
+    color: AppColors.textMidDarkColor,
+  );
+
   static const TextStyle satoshi400S12 = TextStyle(
     fontFamily: 'Satoshi',
     fontSize: 12,
@@ -79,6 +93,12 @@ class AppFontStyle {
     fontSize: 24,
     fontWeight: FontWeight.w400,
   );
+
+  static TextStyle inter400S22C = TextStyle(
+      fontFamily: 'Inter',
+      fontSize: 22,
+      fontWeight: FontWeight.w400,
+      color: AppColors.secondaryColor);
 
   static TextStyle headLineMedium = TextStyle(
     fontFamily: 'Inter',

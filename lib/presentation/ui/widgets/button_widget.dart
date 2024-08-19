@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:get/get.dart';
 import 'package:socialive/app/utility/app_colors.dart';
 import 'package:socialive/app/utility/app_font_style.dart';
 import 'package:socialive/presentation/ui/utility/assets_path.dart';
@@ -52,5 +53,12 @@ Widget textBtn({
         )
       ],
     ),
+  );
+}
+
+Widget backBtn() {
+  return IconButton(
+    icon: Icon(Icons.arrow_back_ios, color: AppColors.secondaryColor),
+    onPressed: () => Get.back(),
   );
 }

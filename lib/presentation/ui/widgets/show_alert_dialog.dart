@@ -1,24 +1,34 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:socialive/app/utility/app_colors.dart';
+import 'package:socialive/app/utility/app_font_style.dart';
+import 'package:socialive/presentation/ui/widgets/button_widget.dart';
 
-void showAlertDialog({
-  required BuildContext context,    
-  required String title,
-  required String content
-}) {
+void showAlertDialog(
+    {required BuildContext context,
+    required String title,
+    required String content}) {
   showDialog(
     context: context,
-    barrierDismissible: false, // default: true,
+    barrierDismissible: false,
     builder: (BuildContext context) {
       return AlertDialog(
-        title: Text(title),
-        content: Text(content),
+        surfaceTintColor: AppColors.foregroundColor,
+        title: Text(
+          title,
+          style: AppFontStyle.satoshi700S18C,
+          textAlign: TextAlign.center,
+        ),
+        content: Text(
+          content,
+          style: AppFontStyle.satoshi400S14C,
+          textAlign: TextAlign.center,
+        ),
         actions: [
-          TextButton(
-            onPressed: () {
-              Navigator.pop(context);
-            },
-            child: const Text('Ok'),
-          ),
+          elevatedBtn(
+            btnName: 'Ok',
+            onPressed: () => Get.back(),
+          )
         ],
       );
     },

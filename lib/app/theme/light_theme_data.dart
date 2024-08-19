@@ -20,5 +20,20 @@ ThemeData lightThemeDataStyle() {
         splashFactory: NoSplash.splashFactory,
       ),
     ),
+    inputDecorationTheme: InputDecorationTheme(
+      enabledBorder: OutlineInputBorder(
+        borderSide:
+            BorderSide(color: AppColors.inputFieldBorderColor, width: 1),
+        borderRadius: BorderRadius.circular(8),
+      ),
+      focusedBorder: OutlineInputBorder(
+        borderSide: BorderSide(color: AppColors.primaryColor, width: 1),
+        borderRadius: BorderRadius.circular(8),
+      ),
+      errorBorder: OutlineInputBorder(
+        borderSide: BorderSide(color: AppColors.errorColor, width: 1),
+        borderRadius: BorderRadius.circular(8),
+      ),
+    ),
   );
 }
