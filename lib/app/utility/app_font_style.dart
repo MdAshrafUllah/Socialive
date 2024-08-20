@@ -88,6 +88,13 @@ class AppFontStyle {
     fontWeight: FontWeight.w700,
   );
 
+  static TextStyle satoshi400S12C = TextStyle(
+    fontFamily: 'Satoshi',
+    fontSize: 12,
+    fontWeight: FontWeight.w700,
+    color: AppColors.primaryColor,
+  );
+
   static const inter400S24 = TextStyle(
     fontFamily: 'Inter',
     fontSize: 24,
