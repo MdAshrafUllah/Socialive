@@ -22,4 +22,5 @@ class AssetsPath {
   static String person = "$_basedURL/person.svg";
   static String notification = "$_basedURL/notification.svg";
   static String message = "$_basedURL/message.svg";
+  static String leftArrow = "$_basedURL/Left Arrow.svg";
 }
