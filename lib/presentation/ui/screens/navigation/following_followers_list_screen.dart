@@ -6,8 +6,8 @@ import 'package:socialive/presentation/controllers/following_followers_list_scre
 import 'package:socialive/presentation/ui/widgets/back_button_with_tittle.dart';
 import '../../widgets/search_text_field_widget.dart';
 
-class FollowingListScreen extends StatelessWidget {
-  const FollowingListScreen({super.key});
+class FollowingFollowerListScreen extends StatelessWidget {
+  const FollowingFollowerListScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -35,7 +35,30 @@ class FollowingListScreen extends StatelessWidget {
               child:
                   SearchTextFieldWidget(searchTEController: searchTEController),
             ),
-          
+            Expanded(
+              child: ListView.builder(
+                itemBuilder: (context, index) {
+                  return ListTile(
+                    contentPadding: EdgeInsets.symmetric(horizontal: 0),
+                    visualDensity: VisualDensity(horizontal: 0, vertical: -4),
+                    title: Text("Hello", style: AppFontStyle.satoshi700S14),
+                    subtitle: Text(
+                      "@rayhansany",
+                      style: AppFontStyle.satoshi400S12
+                          .copyWith(color: AppColors.textLightColor),
+                    ),
+                    leading: CircleAvatar(
+                      backgroundImage:
+                      AssetImage("assets/images/profile/pp1.jpg"),
+                    ),
+                    trailing:
+                    TextButton(onPressed: () {}, child: Text("Unfollow")),
+                  );
+                },
+                itemCount: 15,
+                shrinkWrap: true,
+              ),
+            )
           ],
         ),
       ),
