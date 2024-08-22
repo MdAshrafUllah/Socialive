@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:socialive/Data/models/user_data.dart';
 import 'package:socialive/app/utility/app_colors.dart';
 import 'package:socialive/app/utility/app_font_style.dart';
+import 'package:socialive/presentation/ui/screens/navigation/following_followers_list_screen.dart';
 import 'package:socialive/presentation/ui/widgets/profile/profile_picture_widget.dart';
 
 Widget profileHeaderSection(Size deviceSize, UserData userData) {
   return Container(
-    height: deviceSize.height * 0.24,
+    height: deviceSize.height * 0.26,
     color: AppColors.foregroundColor,
     padding: const EdgeInsets.all(10),
     width: double.maxFinite,
@@ -46,25 +48,35 @@ Widget profileHeaderSection(Size deviceSize, UserData userData) {
                           .copyWith(color: AppColors.textLightColor),
                     ),
                     const SizedBox(width: 8),
-                    Text(
-                      "${userData.following}",
-                      style: AppFontStyle.satoshi500S12,
+                    GestureDetector(
+                      onTap: (){Get.to(const FollowingListScreen());},
+                      child: Row(
+                        children: [
+                          Text(
+                            "${userData.following}",
+                            style: AppFontStyle.satoshi500S12,
+                          ),
+                          const SizedBox(width: 4),
+                          Text(
+                            "Following",
+                            style: AppFontStyle.satoshi400S12
+                                .copyWith(color: AppColors.textLightColor),
+                          ),
+                          const SizedBox(width: 8),
+                          Text(
+                            "${userData.follower}",
+                            style: AppFontStyle.satoshi500S12,
+                          ),
+                          const SizedBox(width: 4),
+                          Text(
+                            "Follower",
+                            style: AppFontStyle.satoshi400S12
+                                .copyWith(color: AppColors.textLightColor),
+                          ),
+                        ],
+                      ),
                     ),
-                    Text(
-                      "Following",
-                      style: AppFontStyle.satoshi400S12
-                          .copyWith(color: AppColors.textLightColor),
-                    ),
-                    const SizedBox(width: 8),
-                    Text(
-                      "${userData.follower}",
-                      style: AppFontStyle.satoshi500S12,
-                    ),
-                    Text(
-                      "Follower",
-                      style: AppFontStyle.satoshi400S12
-                          .copyWith(color: AppColors.textLightColor),
-                    ),
+
                   ],
                 )
               ],

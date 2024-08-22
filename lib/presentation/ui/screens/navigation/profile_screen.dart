@@ -9,23 +9,9 @@ import 'package:socialive/presentation/ui/widgets/profile/grid_or_list_view_sele
 import 'package:socialive/presentation/ui/widgets/profile/post_builder_widget.dart';
 import 'package:socialive/presentation/ui/widgets/profile/profile_picture_info_widget.dart';
 
-class ProfileScreen extends StatefulWidget {
+class ProfileScreen extends StatelessWidget {
   const ProfileScreen({super.key});
-
   @override
-  State<ProfileScreen> createState() => _ProfileScreenState();
-}
-
-class _ProfileScreenState extends State<ProfileScreen> {
-  @override
-  void initState() {
-    SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
-      statusBarColor: AppColors.foregroundColor,
-      statusBarIconBrightness: Brightness.dark,
-      systemNavigationBarColor: AppColors.secondaryColor,
-    ));
-    super.initState();
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -43,7 +29,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
           children: [
             profileHeaderSection(deviceSize, userData),
             Divider(
-              height: 50,
+              height: 20,
               color: AppColors.secondaryColor.withOpacity(0.1),
               thickness: 10,
             ),
