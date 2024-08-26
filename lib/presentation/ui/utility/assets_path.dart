@@ -23,4 +23,5 @@ class AssetsPath {
   static String notification = "$_basedURL/notification.svg";
   static String message = "$_basedURL/message.svg";
   static String leftArrow = "$_basedURL/Left Arrow.svg";
+  static String blankProfileImage = "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png";
 }

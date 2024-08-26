@@ -11,7 +11,7 @@ class ControllerBinder extends Bindings {
     Get.put(ProfileScreenController());
     Get.put(SignUpController());
     Get.put(LoginController());
-    Get.put(LoadingController());
+    Get.lazyPut(()=>LoadingController(),fenix:true);
     Get.put(FollowingFollowersListScreenController());
   }
 }
