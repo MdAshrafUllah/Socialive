@@ -124,7 +124,7 @@ Widget othersStatusProfilePicture({required String profilePicture}) {
   );
 }
 
-Widget othersStatusPicture({required String statusPicture}) {
+Widget othersStatusPicture({required List<String> statusPicture}) {
   return statusPicture.isNotEmpty
       ? Container(
           height: 120,
@@ -133,7 +133,7 @@ Widget othersStatusPicture({required String statusPicture}) {
           child: ClipRRect(
             borderRadius: BorderRadius.circular(5),
             child: Image(
-              image: CachedNetworkImageProvider(statusPicture),
+              image: CachedNetworkImageProvider(statusPicture[0]),
               height: 120,
               width: 95,
               fit: BoxFit.cover,

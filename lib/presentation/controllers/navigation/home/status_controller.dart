@@ -11,7 +11,7 @@ import 'package:socialive/Data/models/user_status_data_model.dart';
 import 'package:socialive/Data/models/user_profile_model.dart';
 import 'package:socialive/app/utility/app_colors.dart';
 import 'package:socialive/presentation/controllers/navigation/profile_screen_controller.dart';
-import 'package:socialive/presentation/ui/screens/status_share_screen.dart';
+import 'package:socialive/presentation/ui/screens/navigation/home/status_share_screen.dart';
 
 final ProfileController profileController = Get.put(ProfileController());
 
@@ -48,20 +48,35 @@ class StatusController extends GetxController {
           FirebaseFirestore.instance
               .collection('users')
               .doc(uid)
+              .collection('status')
+              .orderBy('timestamp', descending: true)
               .snapshots()
-              .listen((docSnapshot) {
-            if (docSnapshot.exists) {
-              final data = docSnapshot.data();
-              if (data != null) {
-                final statusUserProfile = StatusUserProfile.fromMap(data, uid);
-                if (statusUserProfile.status.isNotEmpty) {
-                  followingProfiles[uid] = statusUserProfile;
+              .listen((querySnapshot) {
+            if (querySnapshot.docs.isNotEmpty) {
+              final statusImages = querySnapshot.docs
+                  .map((doc) => doc['statusImages'] as String)
+                  .toList();
+
+              final profileRef =
+                  FirebaseFirestore.instance.collection('users').doc(uid);
+              profileRef.get().then((docSnapshot) {
+                if (docSnapshot.exists && docSnapshot.data() != null) {
+                  final data = docSnapshot.data()!;
+                  final statusUserProfile = StatusUserProfile(
+                    uid: uid,
+                    name: data['name'] ?? '',
+                    profileImage: data['profileImage'] ?? '',
+                    status: statusImages,
+                  );
+                  if (statusUserProfile.status.isNotEmpty) {
+                    followingProfiles[uid] = statusUserProfile;
+                  } else {
+                    followingProfiles.remove(uid);
+                  }
                 } else {
                   followingProfiles.remove(uid);
                 }
-              } else {
-                followingProfiles.remove(uid);
-              }
+              });
             } else {
               followingProfiles.remove(uid);
             }

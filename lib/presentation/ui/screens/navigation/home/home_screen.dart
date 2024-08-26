@@ -92,8 +92,8 @@ class _HomeScreenState extends State<HomeScreen> {
                                     child: othersStatusBox(
                                       profileImage: profileImage,
                                       statusImage: statusList.isNotEmpty
-                                          ? statusList[0]
-                                          : '',
+                                          ? statusList
+                                          : [],
                                       userName: name,
                                     ),
                                   );

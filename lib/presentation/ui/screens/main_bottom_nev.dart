@@ -3,7 +3,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:socialive/app/utility/app_colors.dart';
 import 'package:socialive/presentation/controllers/main_bottom_controller.dart';
-import 'package:socialive/presentation/ui/screens/navigation/home_screen.dart';
+import 'package:socialive/presentation/ui/screens/navigation/home/home_screen.dart';
 import 'package:socialive/presentation/ui/screens/navigation/profile_screen.dart';
 import 'package:socialive/presentation/ui/screens/navigation/search_screen.dart';
 import 'package:socialive/presentation/ui/utility/assets_path.dart';
