@@ -14,8 +14,8 @@ class Socialive extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'Social Live',
       theme: lightThemeDataStyle(),
-      initialBinding: ControllerBinder(),
       home: const WelComeScreen(),
+      initialBinding: ControllerBinder(),
     );
   }
 }

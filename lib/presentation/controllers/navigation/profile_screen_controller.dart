@@ -16,7 +16,7 @@ final EditProfileController _editProfileController =
 
 class ProfileController extends GetxController {
   RxBool showIncompleteProfileDialog = false.obs;
-  late String uid = '';
+  String uid = '';
   Rx<UserProfile?> userProfile = Rx<UserProfile?>(null);
 
   bool isGridViewSelected = true;
