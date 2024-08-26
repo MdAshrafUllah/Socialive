@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:socialive/app/utility/app_colors.dart';
-import 'package:socialive/presentation/controllers/login_screen_controller.dart';
+import 'package:socialive/presentation/controllers/auth/login_screen_controller.dart';
 import 'package:socialive/presentation/ui/utility/assets_path.dart';
 import 'package:socialive/presentation/ui/widgets/button_widget.dart';
 import 'package:socialive/presentation/ui/widgets/text_field_widget.dart';
@@ -15,11 +15,7 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
-  final TextEditingController _emailController = TextEditingController();
-  final TextEditingController _passwordController = TextEditingController();
-
   final LoginController _loginController = Get.find<LoginController>();
-  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
@@ -29,7 +25,7 @@ class _LoginScreenState extends State<LoginScreen> {
         padding: const EdgeInsets.symmetric(horizontal: 20),
         child: SingleChildScrollView(
           child: Form(
-            key: _formKey,
+            key: _loginController.formKey,
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -48,7 +44,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 const SizedBox(height: 5),
                 TextFieldWidget(
                   prefixIcon: AssetsPath.envelope,
-                  controllerTE: _emailController,
+                  controllerTE: _loginController.emailController,
                   hint: 'Input Email',
                   validator: "Enter Your Email",
                   keyboardType: TextInputType.emailAddress,
@@ -63,7 +59,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 Obx(
                   () => TextFieldWidget(
                     prefixIcon: AssetsPath.lock,
-                    controllerTE: _passwordController,
+                    controllerTE: _loginController.passwordController,
                     hint: 'Input Password',
                     obscure: !_loginController.isPasswordVisible.value,
                     suffixIcon: _loginController.isPasswordVisible.value
@@ -92,7 +88,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 const SizedBox(height: 10),
                 elevatedBtn(
                   btnName: 'Log In',
-                  onPressed: _login,
+                  onPressed: _loginController.login(),
                 ),
               ],
             ),
@@ -100,21 +96,5 @@ class _LoginScreenState extends State<LoginScreen> {
         ),
       ),
     );
-  }
-
-  void _login() {
-    if (_formKey.currentState!.validate()) {
-      _loginController.loginUser(
-        _emailController.text.trim(),
-        _passwordController.text.trim(),
-      );
-    }
-  }
-
-  @override
-  void dispose() {
-    _emailController.dispose();
-    _passwordController.dispose();
-    super.dispose();
   }
 }

@@ -25,7 +25,3 @@ Widget commentsBtn({required int commentCount}) {
     ),
   );
 }
-
-Widget widgetName() {
-  return Container();
-}

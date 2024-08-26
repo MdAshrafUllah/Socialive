@@ -1,7 +1,7 @@
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:socialive/app/utility/app_colors.dart';
-import 'package:socialive/presentation/controllers/post_controller.dart';
+import 'package:socialive/presentation/controllers/navigation/home/post_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:socialive/presentation/ui/utility/assets_path.dart';
 

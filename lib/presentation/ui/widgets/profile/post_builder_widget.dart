@@ -9,7 +9,7 @@ Widget postListViewBuilder(List<String> images) {
           borderRadius: BorderRadius.circular(15),
           child: Padding(
             padding: const EdgeInsets.symmetric(vertical: 5),
-            child: Image.asset(images[index], fit: BoxFit.cover),
+            child: Image.network(images[index], fit: BoxFit.cover),
           ));
     },
     shrinkWrap: true,
@@ -35,12 +35,11 @@ Widget postGridViewBuilder(List<String> images) {
     childrenDelegate: SliverChildBuilderDelegate(
       childCount: images.length,
       (context, index) => ClipRRect(
-        borderRadius: BorderRadius.circular(10),
-        child: Image.asset(
-          images[index],
-          fit: BoxFit.cover,
-        ),
-      ),
+          borderRadius: BorderRadius.circular(10),
+          child: Image.network(
+            images[index],
+            fit: BoxFit.cover,
+          )),
     ),
     shrinkWrap: true,
   ));

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:socialive/app/utility/app_colors.dart';
-import 'package:socialive/presentation/controllers/post_controller.dart';
+import 'package:socialive/presentation/controllers/navigation/home/post_controller.dart';
 
 final PostController controller = Get.put(PostController());
 

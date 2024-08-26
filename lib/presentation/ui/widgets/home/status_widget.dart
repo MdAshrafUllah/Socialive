@@ -1,10 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:get/get.dart';
 import 'package:socialive/app/utility/app_colors.dart';
 import 'package:socialive/app/utility/app_font_style.dart';
+import 'package:socialive/presentation/controllers/navigation/home/status_controller.dart';
 import 'package:socialive/presentation/ui/utility/assets_path.dart';
 import 'package:socialive/presentation/ui/widgets/profile/profile_picture_widget.dart';
+import 'package:socialive/presentation/ui/widgets/upload_image_dialog.dart';
 
+final StatusController _statusController = Get.put(StatusController());
 Widget currentUserStatusBox() {
   return Container(
     height: 155,
@@ -17,43 +22,52 @@ Widget currentUserStatusBox() {
       ),
       borderRadius: BorderRadius.circular(10),
     ),
-    child: Column(
-      children: [
-        Stack(
-          children: [
-            currentUserStatusProfilePicture(),
-            Padding(
-              padding: const EdgeInsets.all(3),
-              child: Align(
-                alignment: Alignment.topLeft,
-                child: SizedBox(
-                  height: 35,
-                  width: 35,
-                  child: currentUserProfilePicture(
-                    minRadius: 20,
+    child: GestureDetector(
+      onTap: () {},
+      child: Column(
+        children: [
+          Stack(
+            children: [
+              currentUserStatusPicture(),
+              Padding(
+                padding: const EdgeInsets.all(3),
+                child: Align(
+                  alignment: Alignment.topLeft,
+                  child: SizedBox(
+                    height: 35,
+                    width: 35,
+                    child: currentUserProfilePicture(
+                      minRadius: 20,
+                    ),
                   ),
                 ),
               ),
-            ),
-            Positioned.fill(
-              child: Center(
-                child: SvgPicture.asset(
-                  AssetsPath.add,
-                  colorFilter: ColorFilter.mode(
-                    AppColors.foregroundColor,
-                    BlendMode.srcIn,
+              Positioned.fill(
+                child: Center(
+                  child: GestureDetector(
+                    onTap: () => showUploadImageDialog(
+                      fromCamera: _statusController.statusUploadFromCamera,
+                      fromGallery: _statusController.statusUploadFromGallery,
+                    ),
+                    child: SvgPicture.asset(
+                      AssetsPath.add,
+                      colorFilter: ColorFilter.mode(
+                        AppColors.foregroundColor,
+                        BlendMode.srcIn,
+                      ),
+                    ),
                   ),
                 ),
               ),
-            ),
-          ],
-        ),
-        const SizedBox(height: 5),
-        const Text(
-          "You",
-          style: AppFontStyle.satoshi700S12,
-        ),
-      ],
+            ],
+          ),
+          const SizedBox(height: 5),
+          const Text(
+            "You",
+            style: AppFontStyle.satoshi700S12,
+          ),
+        ],
+      ),
     ),
   );
 }

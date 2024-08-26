@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:socialive/app/utility/app_font_style.dart';
-import 'package:socialive/presentation/controllers/sign_up_screen_controller.dart';
+import 'package:socialive/presentation/controllers/auth/sign_up_screen_controller.dart';
 import 'package:socialive/presentation/ui/utility/assets_path.dart';
-import 'package:socialive/presentation/ui/widgets/show_alert_dialog.dart';
 import 'package:socialive/presentation/ui/widgets/button_widget.dart';
 import 'package:socialive/presentation/ui/widgets/text_field_widget.dart';
 
@@ -15,14 +14,7 @@ class SignUpScreen extends StatefulWidget {
 }
 
 class _SignUpScreenState extends State<SignUpScreen> {
-  final TextEditingController _nameController = TextEditingController();
-  final TextEditingController _emailController = TextEditingController();
-  final TextEditingController _passwordController = TextEditingController();
-  final TextEditingController _passwordCheckController =
-      TextEditingController();
-
   final SignUpController _signUpController = Get.find<SignUpController>();
-  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
@@ -32,7 +24,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
         padding: const EdgeInsets.symmetric(horizontal: 20),
         child: SingleChildScrollView(
           child: Form(
-            key: _formKey,
+            key: _signUpController.formKey,
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -51,7 +43,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 const SizedBox(height: 5),
                 TextFieldWidget(
                   prefixIcon: AssetsPath.person,
-                  controllerTE: _nameController,
+                  controllerTE: _signUpController.nameController,
                   hint: 'Input Name',
                   validator: "Enter Your Name",
                   keyboardType: TextInputType.text,
@@ -65,7 +57,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 const SizedBox(height: 5),
                 TextFieldWidget(
                   prefixIcon: AssetsPath.envelope,
-                  controllerTE: _emailController,
+                  controllerTE: _signUpController.emailController,
                   hint: 'Input Email',
                   validator: "Enter Your Email",
                   keyboardType: TextInputType.emailAddress,
@@ -80,7 +72,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 Obx(
                   () => TextFieldWidget(
                     prefixIcon: AssetsPath.lock,
-                    controllerTE: _passwordController,
+                    controllerTE: _signUpController.passwordController,
                     hint: 'Input Password',
                     obscure: !_signUpController.isPasswordVisible.value,
                     suffixIcon: _signUpController.isPasswordVisible.value
@@ -102,7 +94,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 Obx(
                   () => TextFieldWidget(
                     prefixIcon: AssetsPath.lock,
-                    controllerTE: _passwordCheckController,
+                    controllerTE: _signUpController.passwordCheckController,
                     hint: 'Confirm Password',
                     obscure: !_signUpController.isPasswordCheckVisible.value,
                     suffixIcon: _signUpController.isPasswordCheckVisible.value
@@ -118,7 +110,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 const SizedBox(height: 25),
                 elevatedBtn(
                   btnName: 'Sign Up',
-                  onPressed: _signUp,
+                  onPressed: _signUpController.signUp(),
                 ),
                 SizedBox(height: height * 0.07),
               ],
@@ -127,32 +119,5 @@ class _SignUpScreenState extends State<SignUpScreen> {
         ),
       ),
     );
-  }
-
-  void _signUp() {
-    if (_passwordController.text == _passwordCheckController.text) {
-      if (_formKey.currentState!.validate()) {
-        _signUpController.createUser(
-          _emailController.text.trim(),
-          _passwordController.text.trim(),
-          _nameController.text.trim(),
-        );
-      }
-    } else {
-      showAlertDialog(
-        context: context,
-        title: 'Passwords did not match',
-        content: 'Please enter the same password in both fields.',
-      );
-    }
-  }
-
-  @override
-  void dispose() {
-    _emailController.dispose();
-    _passwordController.dispose();
-    _passwordCheckController.dispose();
-    _nameController.dispose();
-    super.dispose();
   }
 }

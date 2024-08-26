@@ -1,13 +1,21 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:socialive/app/utility/app_colors.dart';
-import 'package:socialive/presentation/controllers/loading_controller.dart';
+import 'package:socialive/presentation/controllers/widget/loading_controller.dart';
 import 'package:socialive/presentation/ui/screens/auth/login_screen.dart';
+import 'package:socialive/presentation/ui/widgets/show_alert_dialog.dart';
 
 final LoadingController loadingController = Get.find<LoadingController>();
 
 class SignUpController extends GetxController {
+  final TextEditingController nameController = TextEditingController();
+  final TextEditingController emailController = TextEditingController();
+  final TextEditingController passwordController = TextEditingController();
+  final TextEditingController passwordCheckController = TextEditingController();
+  final GlobalKey<FormState> formKey = GlobalKey<FormState>();
+
   RxBool isPasswordVisible = false.obs;
   RxBool isPasswordCheckVisible = false.obs;
 
@@ -32,6 +40,11 @@ class SignUpController extends GetxController {
         'name': name,
         'email': email,
         'createdAt': FieldValue.serverTimestamp(),
+        'profileImage': '',
+        'username': '',
+        'following': [],
+        'followers': [],
+        'posts': []
       });
 
       loadingController.hideLoading();
@@ -69,5 +82,29 @@ class SignUpController extends GetxController {
         colorText: AppColors.foregroundColor,
       );
     }
+  }
+
+  signUp() {
+    if (passwordController.text == passwordCheckController.text) {
+      if (formKey.currentState!.validate()) {
+        emailController.text.trim();
+        passwordController.text.trim();
+        nameController.text.trim();
+      }
+    } else {
+      showAlertDialog(
+        title: 'Passwords did not match',
+        content: 'Please enter the same password in both fields.',
+      );
+    }
+  }
+
+  @override
+  void dispose() {
+    emailController.dispose();
+    passwordController.dispose();
+    passwordCheckController.dispose();
+    nameController.dispose();
+    super.dispose();
   }
 }
