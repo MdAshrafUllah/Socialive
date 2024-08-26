@@ -21,7 +21,8 @@ class LoginController extends GetxController {
     isPasswordVisible.value = !isPasswordVisible.value;
   }
 
-  Future<void> loginUser(String email, String password) async {
+  Future<void> loginUser(
+      {required String email, required String password}) async {
     try {
       loadingController.showLoading();
 
@@ -70,8 +71,9 @@ class LoginController extends GetxController {
 
   login() {
     if (formKey.currentState!.validate()) {
-      emailController.text.trim();
-      passwordController.text.trim();
+      String email = emailController.text.trim();
+      String password = passwordController.text.trim();
+      loginUser(email: email, password: password);
     }
   }
 

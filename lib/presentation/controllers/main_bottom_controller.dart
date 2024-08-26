@@ -1,6 +1,5 @@
 import 'package:get/get.dart';
 import 'package:socialive/presentation/controllers/navigation/profile_screen_controller.dart';
-import 'package:socialive/presentation/ui/widgets/upload_image_dialog.dart';
 
 class MainBottomNavigationController extends GetxController {
   final ProfileController profileController = Get.put(ProfileController());

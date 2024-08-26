@@ -112,22 +112,22 @@ class StatusController extends GetxController {
   }
 
   Future<void> getCurrentUserStatus() async {
-    final userRef = FirebaseFirestore.instance
-        .collection('users')
-        .doc(profileController.uid);
-    final statusCollection = userRef.collection('status');
+    final uid = profileController.uid;
+    if (uid.isNotEmpty) {
+      final userRef = FirebaseFirestore.instance.collection('users').doc(uid);
+      final statusCollection = userRef.collection('status');
 
-    statusCollection
-        .orderBy('timestamp', descending: true)
-        .snapshots()
-        .listen((querySnapshot) {
-      statuses.value = querySnapshot.docs
-          .map((doc) => Status.fromFirestore(doc).statusImages.isNotEmpty
-              ? Status.fromFirestore(doc).statusImages[0]
-              : '')
-          .toList();
-      log(statuses.toString());
-    });
+      statusCollection
+          .orderBy('timestamp', descending: true)
+          .snapshots()
+          .listen((querySnapshot) {
+        statuses.value = querySnapshot.docs
+            .map((doc) => Status.fromFirestore(doc).statusImages.isNotEmpty
+                ? Status.fromFirestore(doc).statusImages[0]
+                : '')
+            .toList();
+      });
+    }
   }
 
   Future<void> updateDominantColor(String imageUrl) async {
@@ -139,7 +139,6 @@ class StatusController extends GetxController {
       dominantColor.value =
           paletteGenerator.dominantColor?.color ?? Colors.transparent;
     } catch (e) {
-      log('Error extracting dominant color: $e');
       dominantColor.value = Colors.transparent;
     }
   }

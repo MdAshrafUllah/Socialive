@@ -27,7 +27,10 @@ class SignUpController extends GetxController {
     isPasswordCheckVisible.value = !isPasswordCheckVisible.value;
   }
 
-  Future<void> createUser(String email, String password, String name) async {
+  Future<void> createUser(
+      {required String email,
+      required String password,
+      required String name}) async {
     try {
       loadingController.showLoading();
       UserCredential userCredential = await FirebaseAuth.instance
@@ -87,9 +90,10 @@ class SignUpController extends GetxController {
   signUp() {
     if (passwordController.text == passwordCheckController.text) {
       if (formKey.currentState!.validate()) {
-        emailController.text.trim();
-        passwordController.text.trim();
-        nameController.text.trim();
+        String email = emailController.text.trim();
+        String password = passwordController.text.trim();
+        String name = nameController.text.trim();
+        createUser(email: email, password: password, name: name);
       }
     } else {
       showAlertDialog(

@@ -110,7 +110,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 const SizedBox(height: 25),
                 elevatedBtn(
                   btnName: 'Sign Up',
-                  onPressed: _signUpController.signUp(),
+                  onPressed: _signUpController.signUp,
                 ),
                 SizedBox(height: height * 0.07),
               ],

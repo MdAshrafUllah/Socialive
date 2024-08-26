@@ -88,7 +88,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 const SizedBox(height: 10),
                 elevatedBtn(
                   btnName: 'Log In',
-                  onPressed: _loginController.login(),
+                  onPressed: _loginController.login,
                 ),
               ],
             ),
