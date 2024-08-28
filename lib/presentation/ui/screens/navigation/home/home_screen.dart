@@ -118,7 +118,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 //     } else {
                 //       return PostWidget(
                 //         profileImage: posts[index]["profileImage"],
-                //         username: posts[index]["username"],
+                //         username: posts[index]["userName"],
                 //         handle: posts[index]["handle"],
                 //         postImage: posts[index]["postImage"],
                 //         commentCount: posts[index]["commentCount"],

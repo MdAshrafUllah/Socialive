@@ -24,9 +24,14 @@ Widget currentUserStatusBox() {
       borderRadius: BorderRadius.circular(10),
     ),
     child: GestureDetector(
-      onTap: () => Get.to(() => StatusViewScreen(
-            statusImage: _statusController.statuses,
-          )),
+      onTap: () {
+        if (_statusController.statuses.isNotEmpty) {
+          Get.to(() => StatusViewScreen(
+                statusImage: _statusController.statuses,
+                firstIndex: true,
+              ));
+        }
+      },
       child: Column(
         children: [
           Stack(

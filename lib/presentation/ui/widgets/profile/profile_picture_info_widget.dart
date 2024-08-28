@@ -15,9 +15,8 @@ Widget profileHeaderSection(Size deviceSize, UserProfile userData) {
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
-        const SizedBox(height: 38),
         const Text("My Profile", style: AppFontStyle.satoshi700S20),
-        const SizedBox(height: 20),
+        SizedBox(height: deviceSize.height * 0.03),
         Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [

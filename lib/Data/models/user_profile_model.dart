@@ -26,7 +26,7 @@ class UserProfile {
     return UserProfile(
       uid: doc.id,
       name: data['name'] ?? '',
-      userName: data['username'] ?? '',
+      userName: data['userName'] ?? '',
       email: data['email'] ?? '',
       profileImage: data['profileImage'] ?? '',
       followers: List<String>.from(data['followers'] ?? []),
@@ -38,7 +38,7 @@ class UserProfile {
   Map<String, dynamic> toMap() {
     return {
       'name': name,
-      'username': userName,
+      'userName': userName,
       'email': email,
       'profileImage': profileImage,
       'followers': followers,

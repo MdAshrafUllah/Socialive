@@ -104,17 +104,15 @@ class ProfileController extends GetxController {
         imageUrl = userProfile.value!.profileImage;
       }
 
-      final updatedProfile = UserProfile(
-        name: _editProfileController.nameController.text.isEmpty
+      await userDoc.update({
+        'name': _editProfileController.nameController.text.isEmpty
             ? userProfile.value!.name
             : _editProfileController.nameController.text,
-        userName: _editProfileController.userNameController.text.isEmpty
+        'userName': _editProfileController.userNameController.text.isEmpty
             ? userProfile.value!.userName
             : _editProfileController.userNameController.text.toLowerCase(),
-        profileImage: imageUrl,
-      );
-
-      await userDoc.update(updatedProfile.toMap());
+        'profileImage': imageUrl,
+      });
 
       loadingController.hideLoading();
       Get.snackbar(

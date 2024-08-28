@@ -10,7 +10,7 @@ import 'package:socialive/presentation/ui/widgets/profile/profile_picture_widget
 
 class PostWidget extends StatelessWidget {
   final String profileImage;
-  final String username;
+  final String userName;
   final String handle;
   final String postImage;
   final int commentCount;
@@ -18,7 +18,7 @@ class PostWidget extends StatelessWidget {
   const PostWidget({
     super.key,
     required this.profileImage,
-    required this.username,
+    required this.userName,
     required this.handle,
     required this.postImage,
     required this.commentCount,
@@ -48,7 +48,7 @@ class PostWidget extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        username,
+                        userName,
                         style: AppFontStyle.satoshi700S16,
                       ),
                       Text(

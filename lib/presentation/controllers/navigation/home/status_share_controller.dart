@@ -13,9 +13,14 @@ class StatusShareController extends GetxController {
   Future<void> shareStatus({required String statusImage}) async {
     try {
       loadingController.showLoading();
+      DateTime now = DateTime.now();
+      final formattedDate =
+          '${now.day.toString().padLeft(2, '0')}/${now.month.toString().padLeft(2, '0')}/${now.year}';
+
       final storageRef = FirebaseStorage.instance
           .ref()
           .child('status')
+          .child(_profileController.uid)
           .child('${DateTime.now().millisecondsSinceEpoch}.jpg');
       final uploadTask = storageRef.putFile(File(statusImage));
       final snapshot = await uploadTask;
@@ -24,12 +29,25 @@ class StatusShareController extends GetxController {
       final userRef = FirebaseFirestore.instance
           .collection('users')
           .doc(_profileController.uid);
-      final statusRef =
-          userRef.collection('status').doc(DateTime.now().toIso8601String());
-      await statusRef.set({
-        'statusImages': FieldValue.arrayUnion([downloadUrl]),
-        'timestamp': FieldValue.serverTimestamp(),
-      });
+
+      final statusQuery = await userRef
+          .collection('status')
+          .where('date', isEqualTo: formattedDate)
+          .get();
+
+      if (statusQuery.docs.isNotEmpty) {
+        final existingStatusRef = statusQuery.docs.first.reference;
+        await existingStatusRef.update({
+          'statusImages': FieldValue.arrayUnion([downloadUrl]),
+        });
+      } else {
+        final statusRef = userRef.collection('status').doc();
+        await statusRef.set({
+          'statusImages': FieldValue.arrayUnion([downloadUrl]),
+          'statusUID': statusRef.id,
+          'date': formattedDate,
+        });
+      }
 
       loadingController.hideLoading();
       Get.back();
@@ -39,10 +57,6 @@ class StatusShareController extends GetxController {
         backgroundColor: AppColors.successColor,
         colorText: AppColors.foregroundColor,
       );
-
-      Future.delayed(const Duration(hours: 24), () async {
-        await statusRef.delete();
-      });
     } catch (e) {
       loadingController.hideLoading();
       Get.snackbar(

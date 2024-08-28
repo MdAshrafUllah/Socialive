@@ -49,34 +49,34 @@ class StatusController extends GetxController {
               .collection('users')
               .doc(uid)
               .collection('status')
-              .orderBy('timestamp', descending: true)
               .snapshots()
-              .listen((querySnapshot) {
+              .listen((querySnapshot) async {
             if (querySnapshot.docs.isNotEmpty) {
               final statusImages = querySnapshot.docs
-                  .map((doc) => doc['statusImages'] as String)
+                  .expand((doc) => Status.fromFirestore(doc).statusImages)
                   .toList();
 
               final profileRef =
                   FirebaseFirestore.instance.collection('users').doc(uid);
-              profileRef.get().then((docSnapshot) {
-                if (docSnapshot.exists && docSnapshot.data() != null) {
-                  final data = docSnapshot.data()!;
-                  final statusUserProfile = StatusUserProfile(
-                    uid: uid,
-                    name: data['name'] ?? '',
-                    profileImage: data['profileImage'] ?? '',
-                    status: statusImages,
-                  );
-                  if (statusUserProfile.status.isNotEmpty) {
-                    followingProfiles[uid] = statusUserProfile;
-                  } else {
-                    followingProfiles.remove(uid);
-                  }
+              final docSnapshot = await profileRef.get();
+
+              if (docSnapshot.exists && docSnapshot.data() != null) {
+                final data = docSnapshot.data()!;
+                final statusUserProfile = StatusUserProfile(
+                  uid: uid,
+                  name: data['name'] ?? '',
+                  profileImage: data['profileImage'] ?? '',
+                  status: statusImages,
+                );
+
+                if (statusUserProfile.status.isNotEmpty) {
+                  followingProfiles[uid] = statusUserProfile;
                 } else {
                   followingProfiles.remove(uid);
                 }
-              });
+              } else {
+                followingProfiles.remove(uid);
+              }
             } else {
               followingProfiles.remove(uid);
             }
@@ -129,18 +129,21 @@ class StatusController extends GetxController {
   Future<void> getCurrentUserStatus() async {
     final uid = profileController.uid;
     if (uid.isNotEmpty) {
-      final userRef = FirebaseFirestore.instance.collection('users').doc(uid);
-      final statusCollection = userRef.collection('status');
-
-      statusCollection
-          .orderBy('timestamp', descending: true)
+      FirebaseFirestore.instance
+          .collection('users')
+          .doc(uid)
+          .collection('status')
           .snapshots()
           .listen((querySnapshot) {
-        statuses.value = querySnapshot.docs
-            .map((doc) => Status.fromFirestore(doc).statusImages.isNotEmpty
-                ? Status.fromFirestore(doc).statusImages[0]
-                : '')
+        final statusImages = querySnapshot.docs
+            .map((doc) {
+              final status = Status.fromFirestore(doc);
+              return status.statusImages.isNotEmpty ? status.statusImages : [];
+            })
+            .expand((list) => list)
             .toList();
+
+        statuses.value = statusImages.cast<String>();
       });
     }
   }

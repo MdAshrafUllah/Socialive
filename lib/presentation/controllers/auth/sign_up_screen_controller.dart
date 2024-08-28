@@ -44,7 +44,7 @@ class SignUpController extends GetxController {
         'email': email,
         'createdAt': FieldValue.serverTimestamp(),
         'profileImage': '',
-        'username': '',
+        'userName': '',
         'following': [],
         'followers': [],
         'posts': []

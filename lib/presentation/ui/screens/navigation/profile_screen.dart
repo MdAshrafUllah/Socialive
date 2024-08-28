@@ -21,71 +21,73 @@ class _ProfileScreenState extends State<ProfileScreen> {
   @override
   Widget build(BuildContext context) {
     Size deviceSize = MediaQuery.of(context).size;
-    return Scaffold(
-      body: SingleChildScrollView(
-        child: Column(
-          children: [
-            Obx(
-              () {
-                final userProfile = profileController.userProfile.value;
-                if (userProfile != null) {
-                  return profileHeaderSection(
-                    deviceSize,
-                    UserProfile(
-                      name: userProfile.name!,
-                      userName: '@${userProfile.userName}',
-                      posts: userProfile.posts,
-                      following: userProfile.following,
-                      followers: userProfile.followers,
+    return SafeArea(
+      child: Scaffold(
+        body: SingleChildScrollView(
+          child: Column(
+            children: [
+              Obx(
+                () {
+                  final userProfile = profileController.userProfile.value;
+                  if (userProfile != null) {
+                    return profileHeaderSection(
+                      deviceSize,
+                      UserProfile(
+                        name: userProfile.name!,
+                        userName: '@${userProfile.userName}',
+                        posts: userProfile.posts,
+                        following: userProfile.following,
+                        followers: userProfile.followers,
+                      ),
+                    );
+                  }
+                  return Shimmer.fromColors(
+                    baseColor: AppColors.activeBottomNevItemColor,
+                    highlightColor: AppColors.foregroundColor,
+                    child: Container(
+                      width: deviceSize.width,
+                      height: 150,
+                      decoration: BoxDecoration(
+                        color: AppColors.foregroundColor,
+                        borderRadius: BorderRadius.circular(12),
+                      ),
                     ),
                   );
-                }
-                return Shimmer.fromColors(
-                  baseColor: AppColors.activeBottomNevItemColor,
-                  highlightColor: AppColors.foregroundColor,
-                  child: Container(
-                    width: deviceSize.width,
-                    height: 150,
-                    decoration: BoxDecoration(
-                      color: AppColors.foregroundColor,
-                      borderRadius: BorderRadius.circular(12),
-                    ),
-                  ),
-                );
-              },
-            ),
-            Divider(
-              height: 50,
-              color: AppColors.secondaryColor.withOpacity(0.1),
-              thickness: 10,
-            ),
-            Container(
-              height: deviceSize.height - deviceSize.height / 3.8 - 8,
-              width: deviceSize.width,
-              padding: const EdgeInsets.symmetric(horizontal: 16),
-              color: AppColors.foregroundColor,
-              child: GetBuilder<ProfileController>(
-                  builder: (profileScreenController) {
-                return Column(
-                  children: [
-                    gridOrListViewSelectorSection(deviceSize),
-                    Obx(
-                      () {
-                        final posts =
-                            profileScreenController.userProfile.value?.posts ??
-                                [];
-                        return Visibility(
-                          visible: profileScreenController.isGridViewSelected,
-                          replacement: postListViewBuilder(posts),
-                          child: postGridViewBuilder(posts),
-                        );
-                      },
-                    ),
-                  ],
-                );
-              }),
-            )
-          ],
+                },
+              ),
+              Divider(
+                height: 50,
+                color: AppColors.secondaryColor.withOpacity(0.1),
+                thickness: 10,
+              ),
+              Container(
+                height: deviceSize.height - deviceSize.height / 3.8 - 8,
+                width: deviceSize.width,
+                padding: const EdgeInsets.symmetric(horizontal: 16),
+                color: AppColors.foregroundColor,
+                child: GetBuilder<ProfileController>(
+                    builder: (profileScreenController) {
+                  return Column(
+                    children: [
+                      gridOrListViewSelectorSection(deviceSize),
+                      Obx(
+                        () {
+                          final posts = profileScreenController
+                                  .userProfile.value?.posts ??
+                              [];
+                          return Visibility(
+                            visible: profileScreenController.isGridViewSelected,
+                            replacement: postListViewBuilder(posts),
+                            child: postGridViewBuilder(posts),
+                          );
+                        },
+                      ),
+                    ],
+                  );
+                }),
+              )
+            ],
+          ),
         ),
       ),
     );
