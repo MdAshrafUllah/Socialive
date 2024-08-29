@@ -59,6 +59,8 @@ Widget textBtn({
 Widget backBtn() {
   return IconButton(
     icon: Icon(Icons.arrow_back_ios, color: AppColors.secondaryColor),
-    onPressed: () => Get.back(),
+    onPressed: () {
+      Get.back();
+    },
   );
 }

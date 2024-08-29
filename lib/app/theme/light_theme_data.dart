@@ -26,6 +26,11 @@ ThemeData lightThemeDataStyle() {
             BorderSide(color: AppColors.inputFieldBorderColor, width: 1),
         borderRadius: BorderRadius.circular(8),
       ),
+      border: OutlineInputBorder(
+        borderSide:
+            BorderSide(color: AppColors.inputFieldBorderColor, width: 1),
+        borderRadius: BorderRadius.circular(8),
+      ),
       focusedBorder: OutlineInputBorder(
         borderSide: BorderSide(color: AppColors.primaryColor, width: 1),
         borderRadius: BorderRadius.circular(8),

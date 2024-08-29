@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:socialive/Data/models/user_data.dart';
+import 'package:get/get.dart';
+import 'package:socialive/Data/models/user_profile_model.dart';
 import 'package:socialive/app/utility/app_colors.dart';
 import 'package:socialive/app/utility/app_font_style.dart';
+import 'package:socialive/presentation/ui/screens/edit_profile_screen.dart';
 import 'package:socialive/presentation/ui/widgets/profile/profile_picture_widget.dart';
 
-Widget profileHeaderSection(Size deviceSize, UserData userData) {
+Widget profileHeaderSection(Size deviceSize, UserProfile userData) {
   return Container(
     height: deviceSize.height * 0.24,
     color: AppColors.foregroundColor,
@@ -13,22 +15,26 @@ Widget profileHeaderSection(Size deviceSize, UserData userData) {
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
-        const SizedBox(height: 38),
         const Text("My Profile", style: AppFontStyle.satoshi700S20),
-        const SizedBox(height: 20),
+        SizedBox(height: deviceSize.height * 0.03),
         Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            currentUserProfilePicture(
-              minRadius: 40,
+            GestureDetector(
+              onTap: () => Get.to(
+                () => const EditProfileScreen(),
+              ),
+              child: currentUserProfilePicture(
+                minRadius: 40,
+              ),
             ),
             const SizedBox(width: 18),
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(userData.name, style: AppFontStyle.satoshi700S18),
+                Text(userData.name!, style: AppFontStyle.satoshi700S18),
                 Text(
-                  userData.userName,
+                  userData.userName!,
                   style: AppFontStyle.satoshi400S12
                       .copyWith(color: AppColors.textLightColor),
                 ),
@@ -37,7 +43,7 @@ Widget profileHeaderSection(Size deviceSize, UserData userData) {
                   spacing: 4,
                   children: [
                     Text(
-                      "${userData.numberOfPost}",
+                      "${userData.posts!.length}",
                       style: AppFontStyle.satoshi500S12,
                     ),
                     Text(
@@ -47,7 +53,7 @@ Widget profileHeaderSection(Size deviceSize, UserData userData) {
                     ),
                     const SizedBox(width: 8),
                     Text(
-                      "${userData.following}",
+                      "${userData.following!.length}",
                       style: AppFontStyle.satoshi500S12,
                     ),
                     Text(
@@ -57,7 +63,7 @@ Widget profileHeaderSection(Size deviceSize, UserData userData) {
                     ),
                     const SizedBox(width: 8),
                     Text(
-                      "${userData.follower}",
+                      "${userData.followers!.length}",
                       style: AppFontStyle.satoshi500S12,
                     ),
                     Text(

@@ -10,18 +10,22 @@ import 'package:socialive/presentation/ui/widgets/profile/profile_picture_widget
 
 class PostWidget extends StatelessWidget {
   final String profileImage;
-  final String username;
-  final String handle;
+  final String name;
+  final String userName;
   final String postImage;
+  final String postDescription;
   final int commentCount;
+  final int likeCount;
 
   const PostWidget({
     super.key,
     required this.profileImage,
-    required this.username,
-    required this.handle,
+    required this.name,
+    required this.userName,
     required this.postImage,
+    required this.postDescription,
     required this.commentCount,
+    required this.likeCount,
   });
 
   @override
@@ -42,17 +46,17 @@ class PostWidget extends StatelessWidget {
               Row(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  othersStatusProfilePicture(profilePicture: profileImage),
+                  postsProfilePicture(profilePicture: profileImage),
                   const SizedBox(width: 10),
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        username,
+                        name,
                         style: AppFontStyle.satoshi700S16,
                       ),
                       Text(
-                        handle,
+                        userName,
                         style: AppFontStyle.satoshi400S12C,
                       ),
                     ],

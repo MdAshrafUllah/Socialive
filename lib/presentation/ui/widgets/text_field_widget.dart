@@ -8,11 +8,12 @@ class TextFieldWidget extends StatelessWidget {
     required this.hint,
     required this.prefixIcon,
     required this.validator,
-    required this.textInputAction,
+    this.textInputAction,
     this.obscure = false,
     this.suffixIcon,
     this.keyboardType,
     this.onTap,
+    this.enabled = true,
   });
   final TextEditingController controllerTE;
   final String hint;
@@ -21,8 +22,9 @@ class TextFieldWidget extends StatelessWidget {
   final String? suffixIcon;
   final String validator;
   final TextInputType? keyboardType;
-  final TextInputAction textInputAction;
+  final TextInputAction? textInputAction;
   final VoidCallback? onTap;
+  final bool enabled;
 
   @override
   Widget build(BuildContext context) {
@@ -51,6 +53,7 @@ class TextFieldWidget extends StatelessWidget {
       ),
       keyboardType: keyboardType,
       textInputAction: textInputAction,
+      enabled: enabled,
       validator: (String? text) {
         if (text?.isEmpty ?? true) {
           return validator;

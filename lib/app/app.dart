@@ -5,6 +5,8 @@ import 'package:socialive/controller_binder.dart';
 import 'package:socialive/presentation/ui/screens/welcome_screen.dart';
 
 class Socialive extends StatelessWidget {
+  static GlobalKey<NavigatorState> globalKey = GlobalKey<NavigatorState>();
+
   const Socialive({super.key});
   @override
   Widget build(BuildContext context) {
@@ -12,8 +14,8 @@ class Socialive extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'Social Live',
       theme: lightThemeDataStyle(),
-      initialBinding: ControllerBinder(),
       home: const WelComeScreen(),
+      initialBinding: ControllerBinder(),
     );
   }
 }
