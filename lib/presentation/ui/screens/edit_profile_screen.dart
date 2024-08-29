@@ -20,7 +20,7 @@ class EditProfileScreen extends StatefulWidget {
 
 class _EditProfileScreenState extends State<EditProfileScreen> {
   final EditProfileController _editProfileController =
-      Get.put(EditProfileController());
+      Get.find<EditProfileController>();
 
   @override
   Widget build(BuildContext context) {

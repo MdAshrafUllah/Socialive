@@ -11,7 +11,7 @@ class WelComeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Get.put(WelcomeController());
+    Get.find<WelcomeController>();
     return Scaffold(
       body: Padding(
         padding: const EdgeInsets.all(50),

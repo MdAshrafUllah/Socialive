@@ -4,12 +4,14 @@ import 'package:socialive/Data/models/comment_model.dart';
 import 'package:socialive/Data/models/post_model.dart';
 import 'package:socialive/presentation/controllers/navigation/profile_screen_controller.dart';
 
-final ProfileController profileController = Get.put(ProfileController());
+final ProfileController profileController = Get.find<ProfileController>();
 
 class PostController extends GetxController {
   var isLiked = false.obs;
   var isSaved = false.obs;
   RxList<PostsModel> posts = <PostsModel>[].obs;
+  RxList<String> currentUserAllPosts = <String>[].obs;
+
   @override
   void onInit() {
     getCurrentUserPosts();
@@ -66,6 +68,7 @@ class PostController extends GetxController {
                   comments.add(comment);
                 }
               }
+              currentUserAllPosts.add(postData['postImage'] as String);
               final post = PostsModel(
                 profileImage: profileImage,
                 userName: userName,

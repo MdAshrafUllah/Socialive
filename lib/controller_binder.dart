@@ -1,5 +1,6 @@
 import 'package:get/get.dart';
 import 'package:socialive/presentation/controllers/edit_profile_screen_controller.dart';
+import 'package:socialive/presentation/controllers/following_followers_list_screen_controller.dart';
 import 'package:socialive/presentation/controllers/navigation/home/post_controller.dart';
 import 'package:socialive/presentation/controllers/navigation/home/status_share_controller.dart';
 import 'package:socialive/presentation/controllers/widget/loading_controller.dart';
@@ -15,10 +16,11 @@ class ControllerBinder extends Bindings {
   void dependencies() {
     Get.put(SignUpController());
     Get.put(LoginController());
-    Get.put(LoadingController());
+    Get.lazyPut(() => LoadingController(), fenix: true);
     Get.put(WelcomeController());
     Get.put(MainBottomNavigationController());
     Get.put(ProfileController());
+    Get.put(FollowingFollowersListScreenController());
     Get.put(EditProfileController());
     Get.put(StatusController());
     Get.put(StatusShareController());

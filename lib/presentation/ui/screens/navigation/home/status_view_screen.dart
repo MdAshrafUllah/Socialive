@@ -130,6 +130,8 @@ class _StatusViewScreenState extends State<StatusViewScreen> {
                                 _statusViewController.holdProgress();
                                 showAlertDialog(
                                   title: "Do you want to Delete this Status?",
+                                  elevatedBtnName: "Delete",
+                                  textBtnName: "Cancel",
                                   onElevatedBtnPressed: () {
                                     _statusViewController.deleteStatus(
                                         statusImage:

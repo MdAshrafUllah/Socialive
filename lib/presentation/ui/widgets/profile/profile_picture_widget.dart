@@ -6,8 +6,8 @@ import 'package:socialive/app/utility/app_colors.dart';
 import 'package:socialive/presentation/controllers/navigation/home/status_controller.dart';
 import 'package:socialive/presentation/controllers/navigation/profile_screen_controller.dart';
 
-final ProfileController profileController = Get.put(ProfileController());
-final StatusController _statusController = Get.put(StatusController());
+final ProfileController profileController = Get.find<ProfileController>();
+final StatusController _statusController = Get.find<StatusController>();
 
 Widget currentUserProfilePicture({
   double? minRadius,
@@ -97,7 +97,7 @@ Widget othersStatusProfilePicture({required String profilePicture}) {
   );
 }
 
-Widget postsProfilePicture({required String profilePicture}) {
+Widget globalProfilePicture({required String profilePicture}) {
   return Container(
     decoration: BoxDecoration(
         color: AppColors.inputFieldBorderColor,

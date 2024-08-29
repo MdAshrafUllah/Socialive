@@ -46,7 +46,7 @@ class PostWidget extends StatelessWidget {
               Row(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  postsProfilePicture(profilePicture: profileImage),
+                  globalProfilePicture(profilePicture: profileImage),
                   const SizedBox(width: 10),
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,

@@ -7,7 +7,7 @@ import 'package:socialive/app/utility/app_colors.dart';
 import 'package:socialive/presentation/controllers/navigation/profile_screen_controller.dart';
 import 'package:socialive/presentation/ui/widgets/loading_widget.dart';
 
-final ProfileController _profileController = Get.put(ProfileController());
+final ProfileController _profileController = Get.find<ProfileController>();
 
 class StatusShareController extends GetxController {
   Future<void> shareStatus({required String statusImage}) async {

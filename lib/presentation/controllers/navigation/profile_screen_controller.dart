@@ -12,7 +12,7 @@ import 'package:socialive/presentation/ui/widgets/loading_widget.dart';
 import 'package:socialive/presentation/ui/widgets/show_alert_dialog.dart';
 
 final EditProfileController _editProfileController =
-    Get.put(EditProfileController());
+    Get.find<EditProfileController>();
 
 class ProfileController extends GetxController {
   RxBool showIncompleteProfileDialog = false.obs;
@@ -56,7 +56,7 @@ class ProfileController extends GetxController {
 
     userDoc.snapshots().listen((docSnapshot) {
       if (docSnapshot.exists) {
-        userProfile.value = UserProfile.fromDocumentSnapshot(docSnapshot);
+        userProfile.value = UserProfile.map(docSnapshot);
 
         if (userProfile.value!.userName!.isEmpty ||
             userProfile.value!.profileImage!.isEmpty) {

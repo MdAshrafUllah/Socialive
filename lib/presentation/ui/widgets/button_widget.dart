@@ -18,9 +18,11 @@ Widget elevatedBtn({
           borderRadius: BorderRadius.circular(10),
         ),
       ),
-      child: Text(
-        btnName,
-        style: AppFontStyle.satoshi700S16,
+      child: Center(
+        child: Text(
+          btnName,
+          style: AppFontStyle.satoshi700S16,
+        ),
       ),
     ),
   );
