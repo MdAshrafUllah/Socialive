@@ -40,17 +40,17 @@ class ProfileScreen extends StatelessWidget {
               color: AppColors.foregroundColor,
               child: GetBuilder<ProfileScreenController>(
                   builder: (profileScreenController) {
-                return Column(
-                  children: [
-                    gridOrListViewSelectorSection(deviceSize),
-                    Visibility(
-                      visible: profileScreenController.isGridViewSelected,
-                      replacement: postListViewBuilder(images),
-                      child: postGridViewBuilder(images),
-                    )
-                  ],
-                );
-              }),
+                    return Column(
+                      children: [
+                        gridOrListViewSelectorSection(deviceSize),
+                        Visibility(
+                          visible: profileScreenController.isGridViewSelected,
+                          replacement: postListViewBuilder(images),
+                          child: postGridViewBuilder(images),
+                        )
+                      ],
+                    );
+                  }),
             )
           ],
         ),

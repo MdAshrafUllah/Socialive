@@ -1,4 +1,5 @@
 import 'package:get/get.dart';
+import 'package:socialive/presentation/controllers/following_followers_list_screen_controller.dart';
 import 'package:socialive/presentation/controllers/loading_controller.dart';
 import 'package:socialive/presentation/controllers/login_screen_controller.dart';
 import 'package:socialive/presentation/controllers/profile_screen_controller.dart';
@@ -10,6 +11,7 @@ class ControllerBinder extends Bindings {
     Get.put(ProfileScreenController());
     Get.put(SignUpController());
     Get.put(LoginController());
-    Get.put(LoadingController());
+    Get.lazyPut(()=>LoadingController(),fenix:true);
+    Get.put(FollowingFollowersListScreenController());
   }
 }
