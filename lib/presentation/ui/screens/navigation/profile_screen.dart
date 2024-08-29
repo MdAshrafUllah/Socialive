@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:shimmer/shimmer.dart';
 import 'package:socialive/Data/models/user_profile_model.dart';
 import 'package:socialive/app/utility/app_colors.dart';
 import 'package:socialive/presentation/controllers/navigation/profile_screen_controller.dart';
@@ -41,18 +40,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       ),
                     );
                   }
-                  return Shimmer.fromColors(
-                    baseColor: AppColors.activeBottomNevItemColor,
-                    highlightColor: AppColors.foregroundColor,
-                    child: Container(
-                      width: deviceSize.width,
-                      height: 150,
-                      decoration: BoxDecoration(
-                        color: AppColors.foregroundColor,
-                        borderRadius: BorderRadius.circular(12),
-                      ),
-                    ),
-                  );
+                  return const SizedBox();
                 },
               ),
               Divider(

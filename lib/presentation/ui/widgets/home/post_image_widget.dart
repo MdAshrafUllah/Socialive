@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:socialive/app/utility/app_colors.dart';
@@ -21,8 +22,8 @@ Widget timelinePostImage({
         ),
         child: ClipRRect(
           borderRadius: BorderRadius.circular(8),
-          child: Image.asset(
-            postImage,
+          child: Image(
+            image: CachedNetworkImageProvider(postImage),
             fit: BoxFit.cover,
           ),
         ),

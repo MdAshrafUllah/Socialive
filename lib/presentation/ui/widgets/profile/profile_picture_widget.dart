@@ -1,7 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:shimmer/shimmer.dart';
 
 import 'package:socialive/app/utility/app_colors.dart';
 import 'package:socialive/presentation/controllers/navigation/home/status_controller.dart';
@@ -33,14 +32,7 @@ Widget currentUserProfilePicture({
               backgroundColor: AppColors.primaryColor.withOpacity(0.22),
             );
           }
-          return Shimmer.fromColors(
-            baseColor: AppColors.activeBottomNevItemColor,
-            highlightColor: AppColors.foregroundColor,
-            child: CircleAvatar(
-              minRadius: minRadius,
-              backgroundColor: AppColors.primaryColor.withOpacity(0.22),
-            ),
-          );
+          return const SizedBox();
         },
       ),
     ),
@@ -85,18 +77,7 @@ Widget currentUserStatusPicture() {
           ),
         );
       }
-      return Shimmer.fromColors(
-        baseColor: AppColors.activeBottomNevItemColor,
-        highlightColor: AppColors.foregroundColor,
-        child: Container(
-          height: 120,
-          width: 95,
-          decoration: BoxDecoration(
-            color: AppColors.primaryColor.withOpacity(0.22),
-            borderRadius: BorderRadius.circular(5),
-          ),
-        ),
-      );
+      return const SizedBox();
     },
   );
 }
@@ -106,50 +87,45 @@ Widget othersStatusProfilePicture({required String profilePicture}) {
     decoration: BoxDecoration(
         color: AppColors.primaryColor, borderRadius: BorderRadius.circular(50)),
     child: Padding(
-      padding: const EdgeInsets.all(1.5),
-      child: profilePicture.isNotEmpty
-          ? CircleAvatar(
-              backgroundImage: CachedNetworkImageProvider(
-                profilePicture,
-              ),
-              backgroundColor: AppColors.activeBottomNevItemColor,
-            )
-          : Shimmer.fromColors(
-              baseColor: AppColors.activeBottomNevItemColor,
-              highlightColor: AppColors.foregroundColor,
-              child: CircleAvatar(
-                backgroundColor: AppColors.activeBottomNevItemColor,
-              )),
-    ),
+        padding: const EdgeInsets.all(1.5),
+        child: CircleAvatar(
+          backgroundImage: CachedNetworkImageProvider(
+            profilePicture,
+          ),
+          backgroundColor: AppColors.activeBottomNevItemColor,
+        )),
+  );
+}
+
+Widget postsProfilePicture({required String profilePicture}) {
+  return Container(
+    decoration: BoxDecoration(
+        color: AppColors.inputFieldBorderColor,
+        borderRadius: BorderRadius.circular(50)),
+    child: Padding(
+        padding: const EdgeInsets.all(1.5),
+        child: CircleAvatar(
+          backgroundImage: CachedNetworkImageProvider(
+            profilePicture,
+          ),
+          backgroundColor: AppColors.activeBottomNevItemColor,
+        )),
   );
 }
 
 Widget othersStatusPicture({required List<String> statusPicture}) {
-  return statusPicture.isNotEmpty
-      ? Container(
-          height: 120,
-          width: 95,
-          color: AppColors.activeBottomNevItemColor,
-          child: ClipRRect(
-            borderRadius: BorderRadius.circular(5),
-            child: Image(
-              image: CachedNetworkImageProvider(statusPicture[0]),
-              height: 120,
-              width: 95,
-              fit: BoxFit.cover,
-            ),
-          ),
-        )
-      : Shimmer.fromColors(
-          baseColor: AppColors.activeBottomNevItemColor,
-          highlightColor: AppColors.foregroundColor,
-          child: Container(
-            height: 120,
-            width: 95,
-            decoration: BoxDecoration(
-              color: AppColors.primaryColor.withOpacity(0.22),
-              borderRadius: BorderRadius.circular(5),
-            ),
-          ),
-        );
+  return Container(
+    height: 120,
+    width: 95,
+    color: AppColors.activeBottomNevItemColor,
+    child: ClipRRect(
+      borderRadius: BorderRadius.circular(5),
+      child: Image(
+        image: CachedNetworkImageProvider(statusPicture[0]),
+        height: 120,
+        width: 95,
+        fit: BoxFit.cover,
+      ),
+    ),
+  );
 }

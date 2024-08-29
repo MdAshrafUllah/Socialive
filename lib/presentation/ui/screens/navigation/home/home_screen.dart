@@ -2,12 +2,15 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:socialive/app/utility/app_colors.dart';
+import 'package:socialive/presentation/controllers/navigation/home/post_controller.dart';
 import 'package:socialive/presentation/controllers/navigation/home/status_controller.dart';
 import 'package:socialive/presentation/ui/screens/welcome_screen.dart';
 import 'package:socialive/presentation/ui/utility/assets_path.dart';
 import 'package:socialive/presentation/ui/widgets/app_logo.dart';
 import 'package:socialive/presentation/ui/widgets/clear_catch.dart';
 import 'package:socialive/presentation/ui/widgets/home/home_screen_icons_widget.dart';
+import 'package:socialive/presentation/ui/widgets/home/no_posts_message.dart';
+import 'package:socialive/presentation/ui/widgets/home/timeline_posts_card_widget.dart';
 import 'package:socialive/presentation/ui/widgets/profile/profile_picture_widget.dart';
 import 'package:socialive/presentation/ui/widgets/home/status_widget.dart';
 
@@ -19,7 +22,8 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  final StatusController _status = Get.put(StatusController());
+  final StatusController _statusController = Get.put(StatusController());
+  final PostController _postController = Get.put(PostController());
   @override
   Widget build(BuildContext context) {
     double height = MediaQuery.of(context).size.height;
@@ -69,8 +73,9 @@ class _HomeScreenState extends State<HomeScreen> {
                         child: SizedBox(
                           height: 155,
                           child: Obx(() {
-                            final profiles =
-                                _status.followingProfiles.values.toList();
+                            final profiles = _statusController
+                                .followingProfiles.values
+                                .toList();
 
                             return ListView.builder(
                               scrollDirection: Axis.horizontal,
@@ -107,25 +112,30 @@ class _HomeScreenState extends State<HomeScreen> {
                     ],
                   ),
                 ),
-                // ListView.builder(
-                //   shrinkWrap: true,
-                //   physics: const NeverScrollableScrollPhysics(),
-                //   padding: const EdgeInsets.only(top: 15),
-                //   itemCount: posts.length + 1,
-                //   itemBuilder: (context, index) {
-                //     if (index == posts.length) {
-                //       return noMorePosts();
-                //     } else {
-                //       return PostWidget(
-                //         profileImage: posts[index]["profileImage"],
-                //         username: posts[index]["userName"],
-                //         handle: posts[index]["handle"],
-                //         postImage: posts[index]["postImage"],
-                //         commentCount: posts[index]["commentCount"],
-                //       );
-                //     }
-                //   },
-                // )
+                Obx(() => ListView.builder(
+                      shrinkWrap: true,
+                      physics: const NeverScrollableScrollPhysics(),
+                      padding: const EdgeInsets.only(top: 15),
+                      itemCount: _postController.posts.length + 1,
+                      itemBuilder: (context, index) {
+                        if (index == _postController.posts.length) {
+                          return noMorePosts();
+                        } else {
+                          return PostWidget(
+                            profileImage:
+                                _postController.posts[index].profileImage,
+                            name: _postController.posts[index].name,
+                            userName: _postController.posts[index].userName,
+                            postImage: _postController.posts[index].postImage,
+                            postDescription:
+                                _postController.posts[index].postDescription,
+                            commentCount:
+                                _postController.posts[index].comments.length,
+                            likeCount: _postController.posts[index].likeCount,
+                          );
+                        }
+                      },
+                    ))
               ],
             ),
           ),

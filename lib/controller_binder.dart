@@ -1,5 +1,6 @@
 import 'package:get/get.dart';
 import 'package:socialive/presentation/controllers/edit_profile_screen_controller.dart';
+import 'package:socialive/presentation/controllers/navigation/home/post_controller.dart';
 import 'package:socialive/presentation/controllers/navigation/home/status_share_controller.dart';
 import 'package:socialive/presentation/controllers/widget/loading_controller.dart';
 import 'package:socialive/presentation/controllers/auth/login_screen_controller.dart';
@@ -21,5 +22,6 @@ class ControllerBinder extends Bindings {
     Get.put(EditProfileController());
     Get.put(StatusController());
     Get.put(StatusShareController());
+    Get.put(PostController());
   }
 }
