@@ -49,11 +49,10 @@ Widget profileHeaderSection(Size deviceSize, UserData userData) {
                     ),
                     const SizedBox(width: 8),
                     GestureDetector(
-<<<<<<< Updated upstream
-                      onTap: (){Get.to(const FollowingListScreen());},
-=======
-                      onTap: (){Get.to( FollowingFollowerListScreen(name:userData.name));},
->>>>>>> Stashed changes
+                      onTap: () {
+                        Get.to(
+                            FollowingFollowerListScreen(name: userData.name));
+                      },
                       child: Row(
                         children: [
                           Text(
@@ -80,7 +79,6 @@ Widget profileHeaderSection(Size deviceSize, UserData userData) {
                         ],
                       ),
                     ),
-
                   ],
                 )
               ],
