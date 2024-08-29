@@ -82,6 +82,13 @@ class AppFontStyle {
     color: AppColors.textMidDarkColor,
   );
 
+  static TextStyle satoshi400S14C2 = TextStyle(
+    fontFamily: 'Satoshi',
+    fontSize: 14,
+    fontWeight: FontWeight.w700,
+    color: AppColors.foregroundColor,
+  );
+
   static const TextStyle satoshi400S12 = TextStyle(
     fontFamily: 'Satoshi',
     fontSize: 12,

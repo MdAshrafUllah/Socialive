@@ -13,7 +13,7 @@ import 'package:socialive/app/utility/app_colors.dart';
 import 'package:socialive/presentation/controllers/navigation/profile_screen_controller.dart';
 import 'package:socialive/presentation/ui/screens/navigation/home/status_share_screen.dart';
 
-final ProfileController profileController = Get.put(ProfileController());
+final ProfileController profileController = Get.find<ProfileController>();
 
 class StatusController extends GetxController {
   RxMap<String, StatusUserProfile> followingProfiles =

@@ -17,7 +17,7 @@ class StatusShareScreen extends StatefulWidget {
 
 class _StatusShareScreenState extends State<StatusShareScreen> {
   final StatusShareController _statusShareController =
-      Get.put(StatusShareController());
+      Get.find<StatusShareController>();
   Color _backgroundColor = AppColors.activeBottomNevItemColor;
 
   @override

@@ -1,5 +1,3 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
-
 class UserProfile {
   final String? uid;
   final String? name;
@@ -21,7 +19,7 @@ class UserProfile {
     this.posts,
   });
 
-  factory UserProfile.fromDocumentSnapshot(DocumentSnapshot doc) {
+  factory UserProfile.map(doc) {
     final data = doc.data() as Map<String, dynamic>;
     return UserProfile(
       uid: doc.id,

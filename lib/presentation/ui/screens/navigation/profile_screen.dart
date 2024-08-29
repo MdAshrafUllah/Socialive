@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:socialive/Data/models/user_profile_model.dart';
 import 'package:socialive/app/utility/app_colors.dart';
+import 'package:socialive/presentation/controllers/navigation/home/post_controller.dart';
 import 'package:socialive/presentation/controllers/navigation/profile_screen_controller.dart';
 import 'package:socialive/presentation/ui/widgets/profile/grid_or_list_view_selection_widget.dart';
 import 'package:socialive/presentation/ui/widgets/profile/post_builder_widget.dart';
@@ -14,7 +15,8 @@ class ProfileScreen extends StatefulWidget {
 }
 
 class _ProfileScreenState extends State<ProfileScreen> {
-  final ProfileController profileController = Get.put(ProfileController());
+  final profileController = Get.find<ProfileController>();
+  final postController = Get.find<PostController>();
 
   @override
   Widget build(BuildContext context) {
@@ -48,7 +50,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 thickness: 10,
               ),
               Container(
-                height: deviceSize.height - deviceSize.height / 3.8 - 8,
+                height: deviceSize.height / 3,
                 width: deviceSize.width,
                 padding: const EdgeInsets.symmetric(horizontal: 16),
                 color: AppColors.foregroundColor,
@@ -59,13 +61,12 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       gridOrListViewSelectorSection(deviceSize),
                       Obx(
                         () {
-                          final posts = profileScreenController
-                                  .userProfile.value?.posts ??
-                              [];
+                          final posts = postController.currentUserAllPosts;
                           return Visibility(
                             visible: profileScreenController.isGridViewSelected,
-                            replacement: postListViewBuilder(posts),
-                            child: postGridViewBuilder(posts),
+                            replacement:
+                                postListViewBuilder(posts as List<String>),
+                            child: postGridViewBuilder(posts as List<String>),
                           );
                         },
                       ),

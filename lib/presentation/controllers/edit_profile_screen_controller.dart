@@ -10,7 +10,7 @@ class EditProfileController extends GetxController {
   final TextEditingController userNameController = TextEditingController();
   final TextEditingController emailController = TextEditingController();
 
-  final ProfileController profileController = Get.put(ProfileController());
+  final ProfileController profileController = Get.find<ProfileController>();
 
   var selectedImage = Rx<File?>(null);
 

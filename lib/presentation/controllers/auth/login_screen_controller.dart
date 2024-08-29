@@ -4,12 +4,14 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:socialive/app/utility/app_colors.dart';
 import 'package:socialive/presentation/controllers/auth/sign_up_screen_controller.dart';
+import 'package:socialive/presentation/controllers/navigation/home/post_controller.dart';
 import 'package:socialive/presentation/controllers/navigation/home/status_controller.dart';
 import 'package:socialive/presentation/controllers/navigation/profile_screen_controller.dart';
 import 'package:socialive/presentation/ui/screens/main_bottom_nev.dart';
 
-final ProfileController profileController = Get.put(ProfileController());
-final StatusController statusController = Get.put(StatusController());
+final ProfileController profileController = Get.find<ProfileController>();
+final StatusController statusController = Get.find<StatusController>();
+final PostController _postController = Get.find<PostController>();
 
 class LoginController extends GetxController {
   final TextEditingController emailController = TextEditingController();
@@ -34,6 +36,8 @@ class LoginController extends GetxController {
 
       profileController.initializeUser();
       statusController.getCurrentUserStatus();
+      _postController.getCurrentUserPosts();
+      _postController.getFollowingUsersPosts();
       Future.delayed(const Duration(seconds: 2), () {
         profileController.showIncompleteProfileAlert();
       });

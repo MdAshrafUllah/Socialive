@@ -17,7 +17,7 @@ class MainBottomNavigation extends StatefulWidget {
 
 class _MainBottomNavigationState extends State<MainBottomNavigation> {
   final MainBottomNavigationController _mainBottomController =
-      Get.put(MainBottomNavigationController());
+      Get.find<MainBottomNavigationController>();
 
   final List<Widget> _widgetOptions = <Widget>[
     const HomeScreen(),

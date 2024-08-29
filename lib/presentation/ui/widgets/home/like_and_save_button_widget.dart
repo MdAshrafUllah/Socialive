@@ -5,7 +5,7 @@ import 'package:socialive/presentation/controllers/navigation/home/post_controll
 import 'package:flutter/material.dart';
 import 'package:socialive/presentation/ui/utility/assets_path.dart';
 
-final PostController controller = Get.put(PostController());
+final PostController controller = Get.find<PostController>();
 Widget likedBtn() {
   return GestureDetector(
     onTap: controller.toggleLike,

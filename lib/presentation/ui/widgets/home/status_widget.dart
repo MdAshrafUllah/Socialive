@@ -10,7 +10,7 @@ import 'package:socialive/presentation/ui/utility/assets_path.dart';
 import 'package:socialive/presentation/ui/widgets/profile/profile_picture_widget.dart';
 import 'package:socialive/presentation/ui/widgets/upload_image_dialog.dart';
 
-final StatusController _statusController = Get.put(StatusController());
+final StatusController _statusController = Get.find<StatusController>();
 Widget currentUserStatusBox() {
   return Container(
     height: 155,

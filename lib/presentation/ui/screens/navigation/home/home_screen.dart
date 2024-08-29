@@ -22,8 +22,8 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  final StatusController _statusController = Get.put(StatusController());
-  final PostController _postController = Get.put(PostController());
+  final StatusController _statusController = Get.find<StatusController>();
+  final PostController _postController = Get.find<PostController>();
   @override
   Widget build(BuildContext context) {
     double height = MediaQuery.of(context).size.height;

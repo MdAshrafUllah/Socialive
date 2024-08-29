@@ -1,100 +1,109 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:get/get.dart';
-import 'package:socialive/Data/models/user_datas.dart';
-import 'package:socialive/presentation/controllers/loading_controller.dart';
+import 'package:socialive/Data/models/user_profile_model.dart';
+import 'package:socialive/presentation/controllers/navigation/profile_screen_controller.dart';
+import 'package:socialive/presentation/controllers/widget/loading_controller.dart';
 
 final LoadingController loadingController = Get.find<LoadingController>();
+final ProfileController _profileController = Get.find<ProfileController>();
+
 class FollowingFollowersListScreenController extends GetxController {
-  bool isFollowingButtonSelected = true;
-  List<UserDatas> userDataList = [];
+  RxList followingProfiles = <UserProfile>[].obs;
+  RxList followersProfiles = <UserProfile>[].obs;
+  RxBool isFollowingScreen = true.obs;
+  RxList<String> followingList = <String>[].obs;
 
-  Future<void> onClickFollowingButton() async{
-    if (isFollowingButtonSelected == false) {
-      isFollowingButtonSelected=true;
-      userDataList.clear();
-     await getFollowingsUserData();
-    }
+  @override
+  void onInit() {
+    super.onInit();
+    fetchFollowingProfiles();
+    fetchFollowersProfiles();
   }
 
-  void onClickFollowersButton() {
-
-    if (isFollowingButtonSelected == true) {
-      isFollowingButtonSelected = false;
-
-      loadingController.showLoading();
-      FirebaseFirestore db = FirebaseFirestore.instance;
-      List<dynamic> followersUserId = [];
-      final docRef = db.collection("users").doc("vL0XKsHGiQV3GCXa00ads9qdgUO2");
-      docRef.get().then(
-            (DocumentSnapshot doc) async {
-          final data =  doc.data() as Map<String, dynamic>;
-          //print(data);
-          followersUserId = data["followers"];
-          print(followersUserId);
-
-          for (int i = 0; i < followersUserId.length; i++) {
-            final docRef = db.collection("users").doc(followersUserId[i].toString());
-            await docRef.get().then(
-                  (DocumentSnapshot doc) {
-                final data = doc.data() as Map<String, dynamic>;
-
-                UserDatas userData = UserDatas(
-                    name: data["name"],
-                    userName: data["username"],
-                    userId: data["uid"],
-                    profileImageUrl:data["profileImage"]);
-                userDataList.add(userData);
-                print(userDataList[0].profileImageUrl);
-              },
-              onError: (e) => print("Error getting document: $e"),
-            );
-          }
-          // ...
-        },
-        onError: (e) => print("Error getting document: $e"),
-      );
-
-      update();
-      loadingController.hideLoading();
-    }
+  void switchFollowToFollowers() {
+    isFollowingScreen.value = !isFollowingScreen.value;
   }
 
-  Future<void> getFollowingsUserData() async{
-    loadingController.showLoading();
-    FirebaseFirestore db = FirebaseFirestore.instance;
-    List<dynamic> followingUserId = [];
-    final docRef = db.collection("users").doc("vL0XKsHGiQV3GCXa00ads9qdgUO2");
-    docRef.get().then(
-          (DocumentSnapshot doc) async {
-        final data =  doc.data() as Map<String, dynamic>;
-        //print(data);
-        followingUserId = data["following"];
-        print(followingUserId);
-
-        for (int i = 0; i < followingUserId.length; i++) {
-          final docRef = db.collection("users").doc(followingUserId[i].toString());
-        await docRef.get().then(
-                (DocumentSnapshot doc) {
-              final data = doc.data() as Map<String, dynamic>;
-
-              UserDatas userData = UserDatas(
-                  name: data["name"],
-                  userName: data["username"],
-                  userId: data["uid"],
-                  profileImageUrl:data["profileImage"]);
-              userDataList.add(userData);
-              print(userDataList[0].profileImageUrl);
-            },
-            onError: (e) => print("Error getting document: $e"),
-          );
+  void fetchFollowingProfiles() {
+    FirebaseFirestore.instance
+        .collection('users')
+        .doc(_profileController.uid)
+        .snapshots()
+        .listen((DocumentSnapshot userDoc) {
+      if (userDoc.exists) {
+        followingList = RxList<String>.from(userDoc['following'] ?? []);
+        followingProfiles.clear();
+        for (String uid in followingList) {
+          FirebaseFirestore.instance
+              .collection('users')
+              .doc(uid)
+              .snapshots()
+              .listen((DocumentSnapshot profileDoc) {
+            if (profileDoc.exists) {
+              UserProfile userProfile = UserProfile.map(profileDoc);
+              int index =
+                  followingProfiles.indexWhere((profile) => profile.uid == uid);
+              if (index == -1) {
+                followingProfiles.add(userProfile);
+              } else {
+                followingProfiles[index] = userProfile;
+              }
+            }
+          });
         }
-        // ...
-      },
-      onError: (e) => print("Error getting document: $e"),
-    );
-
-    update();
-    loadingController.hideLoading();
+      }
+    });
   }
 
+  void fetchFollowersProfiles() {
+    FirebaseFirestore.instance
+        .collection('users')
+        .doc(_profileController.uid)
+        .snapshots()
+        .listen((DocumentSnapshot userDoc) {
+      if (userDoc.exists) {
+        List<String> followingUIDList =
+            List<String>.from(userDoc['followers'] ?? []);
+        followersProfiles.clear();
+        for (String uid in followingUIDList) {
+          FirebaseFirestore.instance
+              .collection('users')
+              .doc(uid)
+              .snapshots()
+              .listen((DocumentSnapshot profileDoc) {
+            if (profileDoc.exists) {
+              UserProfile userProfile = UserProfile.map(profileDoc);
+              int index =
+                  followersProfiles.indexWhere((profile) => profile.uid == uid);
+              if (index == -1) {
+                followersProfiles.add(userProfile);
+              } else {
+                followersProfiles[index] = userProfile;
+              }
+            }
+          });
+        }
+      }
+    });
+  }
+
+  void toggleFollow(String uid) {
+    for (String user in followingList) {
+      if (user != uid) {
+        FirebaseFirestore.instance
+            .collection('users')
+            .doc(_profileController.uid)
+            .update({
+          'following': FieldValue.arrayUnion([uid])
+        });
+      } else {
+        FirebaseFirestore.instance
+            .collection('users')
+            .doc(_profileController.uid)
+            .update({
+          'following': FieldValue.arrayRemove([uid])
+        });
+      }
+    }
+  }
 }
