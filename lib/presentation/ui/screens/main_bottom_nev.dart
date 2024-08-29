@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:get/get.dart';
 import 'package:socialive/app/utility/app_colors.dart';
-import 'package:socialive/presentation/ui/screens/navigation/home_screen.dart';
+import 'package:socialive/presentation/controllers/main_bottom_controller.dart';
+import 'package:socialive/presentation/ui/screens/navigation/home/home_screen.dart';
 import 'package:socialive/presentation/ui/screens/navigation/profile_screen.dart';
 import 'package:socialive/presentation/ui/screens/navigation/search_screen.dart';
 import 'package:socialive/presentation/ui/utility/assets_path.dart';
@@ -14,81 +16,78 @@ class MainBottomNavigation extends StatefulWidget {
 }
 
 class _MainBottomNavigationState extends State<MainBottomNavigation> {
+  final MainBottomNavigationController _mainBottomController =
+      Get.put(MainBottomNavigationController());
+
   final List<Widget> _widgetOptions = <Widget>[
     const HomeScreen(),
     const SearchScreen(),
-    const HomeScreen(),
+    const SizedBox(),
     const ProfileScreen(),
   ];
-  int _selectedIndex = 0;
-
-  void _onItemTapped(int index) {
-    setState(() {
-      _selectedIndex = index;
-    });
-  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Center(
-        child: _widgetOptions.elementAt(_selectedIndex),
-      ),
-      bottomNavigationBar: Theme(
-        data: Theme.of(context).copyWith(
-          splashColor: Colors.transparent,
-          highlightColor: Colors.transparent,
-        ),
-        child: BottomNavigationBar(
-          backgroundColor: AppColors.foregroundColor,
-          items: [
-            _buildBottomNavigationBarItem(
-              bottomIconsStyle(
-                AssetsPath.home,
-                index: 0,
-                selected: _selectedIndex == 0,
-              ),
-              0,
+      body: Obx(() => Center(
+            child: _widgetOptions
+                .elementAt(_mainBottomController.selectedIndex.value),
+          )),
+      bottomNavigationBar: Obx(() => Theme(
+            data: Theme.of(context).copyWith(
+              splashColor: Colors.transparent,
+              highlightColor: Colors.transparent,
             ),
-            _buildBottomNavigationBarItem(
-              bottomIconsStyle(
-                AssetsPath.search,
-                index: 1,
-                selected: _selectedIndex == 1,
-              ),
-              1,
+            child: BottomNavigationBar(
+              backgroundColor: AppColors.foregroundColor,
+              items: [
+                _buildBottomNavigationBarItem(
+                  bottomIconsStyle(
+                    AssetsPath.home,
+                    index: 0,
+                    selected: _mainBottomController.selectedIndex.value == 0,
+                  ),
+                  0,
+                ),
+                _buildBottomNavigationBarItem(
+                  bottomIconsStyle(
+                    AssetsPath.search,
+                    index: 1,
+                    selected: _mainBottomController.selectedIndex.value == 1,
+                  ),
+                  1,
+                ),
+                _buildBottomNavigationBarItem(
+                  bottomIconsStyle(
+                    AssetsPath.add,
+                    index: 2,
+                    selected: _mainBottomController.selectedIndex.value == 2,
+                  ),
+                  2,
+                ),
+                _buildBottomNavigationBarItem(
+                  bottomIconsStyle(
+                    AssetsPath.profile,
+                    index: 3,
+                    selected: _mainBottomController.selectedIndex.value == 3,
+                  ),
+                  3,
+                ),
+              ],
+              currentIndex: _mainBottomController.selectedIndex.value,
+              selectedItemColor: AppColors.primaryColor,
+              unselectedItemColor: AppColors.textLightColor,
+              onTap: _mainBottomController.onItemTapped,
+              showSelectedLabels: false,
+              showUnselectedLabels: false,
             ),
-            _buildBottomNavigationBarItem(
-              bottomIconsStyle(
-                AssetsPath.add,
-                index: 2,
-                selected: _selectedIndex == 2,
-              ),
-              2,
-            ),
-            _buildBottomNavigationBarItem(
-              bottomIconsStyle(
-                AssetsPath.profile,
-                index: 3,
-                selected: _selectedIndex == 3,
-              ),
-              3,
-            ),
-          ],
-          currentIndex: _selectedIndex,
-          selectedItemColor: AppColors.primaryColor,
-          unselectedItemColor: AppColors.textLightColor,
-          onTap: _onItemTapped,
-          showSelectedLabels: false,
-          showUnselectedLabels: false,
-        ),
-      ),
+          )),
     );
   }
 
   BottomNavigationBarItem _buildBottomNavigationBarItem(
       Widget iconData, int index) {
-    final selected = index == _selectedIndex;
+    final selected = index == _mainBottomController.selectedIndex.value;
     return BottomNavigationBarItem(
       icon: _buildIcon(iconData, selected),
       label: '',

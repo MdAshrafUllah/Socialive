@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:socialive/app/utility/app_colors.dart';
-import 'package:socialive/presentation/controllers/profile_screen_controller.dart';
+import 'package:socialive/presentation/controllers/navigation/profile_screen_controller.dart';
 import 'package:socialive/presentation/ui/utility/assets_path.dart';
 import 'package:socialive/presentation/ui/widgets/profile/list_view_widget.dart';
 
 Widget gridOrListViewSelectorSection(Size deviceSize) {
   return Column(
     children: [
-      GetBuilder<ProfileScreenController>(builder: (profileScreenController) {
+      GetBuilder<ProfileController>(builder: (profileScreenController) {
         return Row(
           children: [
             const Spacer(),

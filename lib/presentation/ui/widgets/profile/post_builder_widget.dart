@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 
-Widget postListViewBuilder(List<String> images) {
+Widget postListViewBuilder(List<String> posts) {
   return Expanded(
       child: ListView.builder(
     itemBuilder: (context, index) {
@@ -9,15 +9,15 @@ Widget postListViewBuilder(List<String> images) {
           borderRadius: BorderRadius.circular(15),
           child: Padding(
             padding: const EdgeInsets.symmetric(vertical: 5),
-            child: Image.asset(images[index], fit: BoxFit.cover),
+            child: Image.network(posts[index], fit: BoxFit.cover),
           ));
     },
     shrinkWrap: true,
-    itemCount: images.length,
+    itemCount: posts.length,
   ));
 }
 
-Widget postGridViewBuilder(List<String> images) {
+Widget postGridViewBuilder(List<String> posts) {
   return Expanded(
       child: GridView.custom(
     gridDelegate: SliverQuiltedGridDelegate(
@@ -33,14 +33,13 @@ Widget postGridViewBuilder(List<String> images) {
       ],
     ),
     childrenDelegate: SliverChildBuilderDelegate(
-      childCount: images.length,
+      childCount: posts.length,
       (context, index) => ClipRRect(
-        borderRadius: BorderRadius.circular(10),
-        child: Image.asset(
-          images[index],
-          fit: BoxFit.cover,
-        ),
-      ),
+          borderRadius: BorderRadius.circular(10),
+          child: Image.network(
+            posts[index],
+            fit: BoxFit.cover,
+          )),
     ),
     shrinkWrap: true,
   ));
