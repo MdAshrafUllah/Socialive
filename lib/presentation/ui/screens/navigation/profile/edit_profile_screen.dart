@@ -5,8 +5,9 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:socialive/app/utility/app_colors.dart';
 import 'package:socialive/app/utility/app_font_style.dart';
-import 'package:socialive/presentation/controllers/edit_profile_screen_controller.dart';
+import 'package:socialive/presentation/controllers/navigation/profile/edit_profile_screen_controller.dart';
 import 'package:socialive/presentation/ui/utility/assets_path.dart';
+import 'package:socialive/presentation/ui/widgets/custom_app_bar.dart';
 import 'package:socialive/presentation/ui/widgets/button_widget.dart';
 import 'package:socialive/presentation/ui/widgets/text_field_widget.dart';
 import 'package:socialive/presentation/ui/widgets/upload_image_dialog.dart';
@@ -19,8 +20,7 @@ class EditProfileScreen extends StatefulWidget {
 }
 
 class _EditProfileScreenState extends State<EditProfileScreen> {
-  final EditProfileController _editProfileController =
-      Get.find<EditProfileController>();
+  final _editProfileController = Get.find<EditProfileController>();
 
   @override
   Widget build(BuildContext context) {
@@ -32,8 +32,11 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              SizedBox(height: height * 0.07),
-              backBtn(),
+              customAppBar(
+                title: "Edit Profile",
+                isBackButtonEnable: true,
+                clearData: _editProfileController.clearSelectedImage,
+              ),
               SizedBox(height: height * 0.07),
               Center(
                 child: Column(
@@ -44,28 +47,41 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                               .profilePictureUploadFromCamera,
                           fromGallery: _editProfileController
                               .profilePictureUploadFromGallery),
-                      child: Container(
-                        height: 100,
-                        width: 100,
-                        decoration: BoxDecoration(
-                          border: Border.all(
-                            color: AppColors.secondaryColor,
-                            width: 2,
-                          ),
-                          borderRadius: BorderRadius.circular(10),
-                        ),
-                        child: Obx(() {
-                          final image =
-                              _editProfileController.selectedImage.value;
-                          return image != null && image.path.isNotEmpty
-                              ? Image.file(File(image.path))
-                              : SvgPicture.asset(AssetsPath.add);
-                        }),
-                      ),
+                      child: Obx(() {
+                        final image =
+                            _editProfileController.selectedImage.value;
+                        return image != null && image.path.isNotEmpty
+                            ? CircleAvatar(
+                                radius: 50,
+                                backgroundImage: FileImage(
+                                  File(image.path),
+                                ),
+                                child: Align(
+                                  alignment: Alignment.bottomRight,
+                                  child: GestureDetector(
+                                    onTap: () {
+                                      _editProfileController
+                                          .selectedImage.value = null;
+                                    },
+                                    child: Icon(
+                                      Icons.cancel,
+                                      color: AppColors.errorColor,
+                                    ),
+                                  ),
+                                ),
+                              )
+                            : SvgPicture.asset(
+                                AssetsPath.addImage,
+                                height: 80,
+                                width: 80,
+                                colorFilter: ColorFilter.mode(
+                                    AppColors.textLightColor, BlendMode.srcIn),
+                              );
+                      }),
                     ),
                     const SizedBox(height: 8),
                     const Text(
-                      'Profile Picture',
+                      'Add Profile Picture',
                       style: AppFontStyle.satoshi700S18,
                     ),
                   ],
@@ -97,7 +113,10 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                 hint: _editProfileController.getUserNameHint(),
                 validator: "Enter Your User Name",
                 keyboardType: TextInputType.text,
-                textInputAction: TextInputAction.done,
+                textInputAction: TextInputAction.go,
+                onFieldSubmitted: (value) {
+                  _editProfileController.profileController.updateUserProfile();
+                },
               ),
               const SizedBox(height: 8),
               const Text(

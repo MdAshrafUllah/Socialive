@@ -2,21 +2,23 @@ import 'dart:io';
 import 'package:path_provider/path_provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-Future<void> deleteCacheDir() async {
-  Directory tempDir = await getTemporaryDirectory();
+class AppDataClear {
+  static Future<void> deleteCacheDir() async {
+    Directory tempDir = await getTemporaryDirectory();
 
-  if (tempDir.existsSync()) {
-    tempDir.deleteSync(recursive: true);
+    if (await tempDir.exists()) {
+      await tempDir.delete(recursive: true);
+    }
+
+    SharedPreferences preferences = await SharedPreferences.getInstance();
+    await preferences.clear();
   }
 
-  SharedPreferences preferences = await SharedPreferences.getInstance();
-  await preferences.clear();
-}
+  static Future<void> deleteAppDir() async {
+    Directory appDocDir = await getApplicationDocumentsDirectory();
 
-Future<void> deleteAppDir() async {
-  Directory appDocDir = await getApplicationDocumentsDirectory();
-
-  if (appDocDir.existsSync()) {
-    appDocDir.deleteSync(recursive: true);
+    if (await appDocDir.exists()) {
+      await appDocDir.delete(recursive: true);
+    }
   }
 }

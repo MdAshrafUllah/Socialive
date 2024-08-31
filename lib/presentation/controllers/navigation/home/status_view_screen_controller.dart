@@ -4,7 +4,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:socialive/app/utility/app_colors.dart';
-import 'package:socialive/presentation/controllers/navigation/profile_screen_controller.dart';
+import 'package:socialive/presentation/controllers/navigation/profile/profile_screen_controller.dart';
 import 'package:socialive/presentation/ui/widgets/loading_widget.dart';
 
 final ProfileController _profileController = Get.find();

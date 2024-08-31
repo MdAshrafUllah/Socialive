@@ -2,9 +2,11 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:get/get.dart';
 import 'package:socialive/Data/models/comment_model.dart';
 import 'package:socialive/Data/models/post_model.dart';
-import 'package:socialive/presentation/controllers/navigation/profile_screen_controller.dart';
+import 'package:socialive/app/utility/app_colors.dart';
+import 'package:socialive/presentation/controllers/navigation/profile/profile_screen_controller.dart';
+import 'package:socialive/presentation/ui/widgets/loading_widget.dart';
 
-final ProfileController profileController = Get.find<ProfileController>();
+final profileController = Get.find<ProfileController>();
 
 class PostController extends GetxController {
   var isLiked = false.obs;
@@ -14,9 +16,8 @@ class PostController extends GetxController {
 
   @override
   void onInit() {
-    getCurrentUserPosts();
-    getFollowingUsersPosts();
     super.onInit();
+    fetchAllPosts();
   }
 
   void toggleLike() {
@@ -25,6 +26,11 @@ class PostController extends GetxController {
 
   void toggleSave() {
     isSaved.value = !isSaved.value;
+  }
+
+  void fetchAllPosts() {
+    getCurrentUserPosts();
+    getFollowingUsersPosts();
   }
 
   Future<void> getCurrentUserPosts() async {
@@ -46,6 +52,8 @@ class PostController extends GetxController {
             final List<PostsModel> currentUserPosts = [];
             for (var doc in querySnapshot.docs) {
               final postData = doc.data();
+              final postImage =
+                  (postData['postImage'] as List<dynamic>).cast<String>();
               final List<CommentModel> comments = [];
               for (var commentData in postData['commentCount'] as List) {
                 final commentMap = commentData as Map<String, dynamic>;
@@ -68,16 +76,18 @@ class PostController extends GetxController {
                   comments.add(comment);
                 }
               }
-              currentUserAllPosts.add(postData['postImage'] as String);
+              currentUserAllPosts.add(postImage.first);
               final post = PostsModel(
+                postUserId: uid,
                 profileImage: profileImage,
                 userName: userName,
                 name: name,
-                postImage: postData['postImage'] as String,
+                postImage: postImage,
                 postDescription: postData['postDescription'] as String,
                 likeCount: postData['likeCount'] as int,
                 comments: comments,
                 postTime: (postData['postTime'] as Timestamp).toDate(),
+                postId: postData['postId'],
               );
               currentUserPosts.add(post);
             }
@@ -107,6 +117,8 @@ class PostController extends GetxController {
           final List<PostsModel> fetchedPosts = await Future.wait(
             postSnapshot.docs.map((postDoc) async {
               final postData = postDoc.data();
+              final postImage =
+                  (postData['postImage'] as List<dynamic>).cast<String>();
               final List<CommentModel> comments = await Future.wait(
                 (postData['commentCount'] as List).map((commentData) async {
                   final commentUID = commentData['userUID'] as String;
@@ -132,14 +144,16 @@ class PostController extends GetxController {
                   .get();
               final userProfileData = userProfileSnapshot.data()!;
               return PostsModel(
+                postUserId: userProfileData['uid'] as String,
                 profileImage: userProfileData['profileImage'] as String,
                 userName: userProfileData['userName'] as String,
                 name: userProfileData['name'] as String,
-                postImage: postData['postImage'] as String,
+                postImage: postImage,
                 postDescription: postData['postDescription'] as String,
                 likeCount: postData['likeCount'] as int,
                 comments: comments,
                 postTime: (postData['postTime'] as Timestamp).toDate(),
+                postId: postData['postId'],
               );
             }).toList(),
           );
@@ -152,7 +166,45 @@ class PostController extends GetxController {
 
   void updatePosts(List<PostsModel> newPosts) {
     final combinedPosts = [...posts, ...newPosts];
-    combinedPosts.sort((a, b) => b.postTime.compareTo(a.postTime));
-    posts.assignAll(combinedPosts);
+    final uniquePosts = <PostsModel>{}.union(combinedPosts.toSet()).toList();
+    uniquePosts.sort((a, b) => b.postTime.compareTo(a.postTime));
+    posts.assignAll(uniquePosts);
+  }
+
+  Future<void> deletePost(String postId) async {
+    try {
+      loadingController.showLoading();
+      final uid = profileController.uid;
+      if (uid.isNotEmpty) {
+        final postRef = FirebaseFirestore.instance
+            .collection('users')
+            .doc(uid)
+            .collection('posts')
+            .doc(postId);
+
+        await postRef.delete();
+
+        posts.removeWhere((post) => post.postImage.contains(postId));
+        currentUserAllPosts.remove(postId);
+
+        updatePosts(posts);
+      }
+      loadingController.hideLoading();
+      Get.snackbar(
+        'Success',
+        'Post deleted successfully!',
+        backgroundColor: AppColors.successColor,
+        colorText: AppColors.foregroundColor,
+      );
+      fetchAllPosts();
+    } catch (e) {
+      loadingController.hideLoading();
+      Get.snackbar(
+        'Failed',
+        'Failed to delete Post. ${e.toString()}',
+        backgroundColor: AppColors.errorColor,
+        colorText: AppColors.foregroundColor,
+      );
+    }
   }
 }

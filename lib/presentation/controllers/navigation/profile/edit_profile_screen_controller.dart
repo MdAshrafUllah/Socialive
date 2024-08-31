@@ -3,7 +3,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:socialive/presentation/controllers/navigation/profile_screen_controller.dart';
+import 'package:socialive/presentation/controllers/navigation/profile/profile_screen_controller.dart';
 
 class EditProfileController extends GetxController {
   final TextEditingController nameController = TextEditingController();
@@ -45,22 +45,26 @@ class EditProfileController extends GetxController {
     selectedImage.value = image;
   }
 
+  void clearSelectedImage() {
+    selectedImage.value = null;
+  }
+
   void profilePictureUploadFromCamera() async {
+    Get.back();
     final pickedFile =
         await ImagePicker().pickImage(source: ImageSource.camera);
     if (pickedFile != null) {
       setSelectedImage(File(pickedFile.path));
     }
-    Get.back();
   }
 
   void profilePictureUploadFromGallery() async {
+    Get.back();
     final pickedFile =
         await ImagePicker().pickImage(source: ImageSource.gallery);
     if (pickedFile != null) {
       setSelectedImage(File(pickedFile.path));
     }
-    Get.back();
   }
 
   @override
@@ -69,5 +73,11 @@ class EditProfileController extends GetxController {
     userNameController.dispose();
     emailController.dispose();
     super.dispose();
+  }
+
+  @override
+  void onClose() {
+    super.onClose();
+    clearSelectedImage();
   }
 }

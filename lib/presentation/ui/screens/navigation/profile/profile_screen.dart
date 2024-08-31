@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:socialive/Data/models/user_profile_model.dart';
 import 'package:socialive/app/utility/app_colors.dart';
+import 'package:socialive/presentation/controllers/navigation/profile/following_followers_list_screen_controller.dart';
 import 'package:socialive/presentation/controllers/navigation/home/post_controller.dart';
-import 'package:socialive/presentation/controllers/navigation/profile_screen_controller.dart';
+import 'package:socialive/presentation/controllers/navigation/profile/profile_screen_controller.dart';
 import 'package:socialive/presentation/ui/widgets/profile/grid_or_list_view_selection_widget.dart';
 import 'package:socialive/presentation/ui/widgets/profile/post_builder_widget.dart';
 import 'package:socialive/presentation/ui/widgets/profile/profile_picture_info_widget.dart';
@@ -15,8 +15,9 @@ class ProfileScreen extends StatefulWidget {
 }
 
 class _ProfileScreenState extends State<ProfileScreen> {
-  final profileController = Get.find<ProfileController>();
   final postController = Get.find<PostController>();
+  final followingFollowersController =
+      Get.find<FollowingFollowersListController>();
 
   @override
   Widget build(BuildContext context) {
@@ -28,20 +29,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
             children: [
               Obx(
                 () {
-                  final userProfile = profileController.userProfile.value;
-                  if (userProfile != null) {
-                    return profileHeaderSection(
-                      deviceSize,
-                      UserProfile(
-                        name: userProfile.name!,
-                        userName: '@${userProfile.userName}',
-                        posts: userProfile.posts,
-                        following: userProfile.following,
-                        followers: userProfile.followers,
-                      ),
-                    );
-                  }
-                  return const SizedBox();
+                  return profileHeaderSection(deviceSize);
                 },
               ),
               Divider(
@@ -50,10 +38,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 thickness: 10,
               ),
               Container(
-                height: deviceSize.height / 3,
+                height: deviceSize.height * 0.6,
                 width: deviceSize.width,
                 padding: const EdgeInsets.symmetric(horizontal: 16),
-                color: AppColors.foregroundColor,
                 child: GetBuilder<ProfileController>(
                     builder: (profileScreenController) {
                   return Column(
@@ -64,9 +51,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           final posts = postController.currentUserAllPosts;
                           return Visibility(
                             visible: profileScreenController.isGridViewSelected,
-                            replacement:
-                                postListViewBuilder(posts as List<String>),
-                            child: postGridViewBuilder(posts as List<String>),
+                            replacement: postListViewBuilder(posts),
+                            child: postGridViewBuilder(posts),
                           );
                         },
                       ),

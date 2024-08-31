@@ -25,7 +25,7 @@ Widget postListLayout(
           const SizedBox(width: 2),
           Text(
             buttonName,
-            style: AppFontStyle.satoshi500S12,
+            style: AppFontStyle.satoshi700S14,
           ),
         ],
       )),

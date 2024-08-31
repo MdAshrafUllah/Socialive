@@ -1,3 +1,5 @@
+import 'package:socialive/Data/models/post_model.dart';
+
 class UserProfile {
   final String? uid;
   final String? name;
@@ -6,7 +8,7 @@ class UserProfile {
   final String? profileImage;
   final List<String>? followers;
   final List<String>? following;
-  final List<String>? posts;
+  final List<PostsModel>? posts;
 
   UserProfile({
     this.uid,
@@ -29,7 +31,9 @@ class UserProfile {
       profileImage: data['profileImage'] ?? '',
       followers: List<String>.from(data['followers'] ?? []),
       following: List<String>.from(data['following'] ?? []),
-      posts: List<String>.from(data['posts'] ?? []),
+      posts: (data['posts'] as List<dynamic>?)
+          ?.map((post) => PostsModel.fromFirestore(post))
+          .toList(),
     );
   }
 
@@ -41,7 +45,7 @@ class UserProfile {
       'profileImage': profileImage,
       'followers': followers,
       'following': following,
-      'posts': posts,
+      'posts': posts?.map((post) => post.toMap()).toList(),
     };
   }
 }

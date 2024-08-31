@@ -58,19 +58,21 @@ class _LoginScreenState extends State<LoginScreen> {
                 const SizedBox(height: 5),
                 Obx(
                   () => TextFieldWidget(
-                    prefixIcon: AssetsPath.lock,
-                    controllerTE: _loginController.passwordController,
-                    hint: 'Input Password',
-                    obscure: !_loginController.isPasswordVisible.value,
-                    suffixIcon: _loginController.isPasswordVisible.value
-                        ? AssetsPath.eye
-                        : AssetsPath.eyeSlash,
-                    textInputAction: TextInputAction.done,
-                    validator: "Enter Your Password",
-                    onTap: () {
-                      _loginController.togglePasswordVisible();
-                    },
-                  ),
+                      prefixIcon: AssetsPath.lock,
+                      controllerTE: _loginController.passwordController,
+                      hint: 'Input Password',
+                      obscure: !_loginController.isPasswordVisible.value,
+                      suffixIcon: _loginController.isPasswordVisible.value
+                          ? AssetsPath.eye
+                          : AssetsPath.eyeSlash,
+                      textInputAction: TextInputAction.go,
+                      validator: "Enter Your Password",
+                      onTap: () {
+                        _loginController.togglePasswordVisible();
+                      },
+                      onFieldSubmitted: (value) {
+                        _loginController.login;
+                      }),
                 ),
                 const SizedBox(height: 10),
                 Row(

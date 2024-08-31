@@ -10,7 +10,7 @@ import 'package:socialive/Data/models/status_data_model.dart';
 import 'package:socialive/Data/models/user_status_data_model.dart';
 import 'package:socialive/Data/models/user_profile_model.dart';
 import 'package:socialive/app/utility/app_colors.dart';
-import 'package:socialive/presentation/controllers/navigation/profile_screen_controller.dart';
+import 'package:socialive/presentation/controllers/navigation/profile/profile_screen_controller.dart';
 import 'package:socialive/presentation/ui/screens/navigation/home/status_share_screen.dart';
 
 final ProfileController profileController = Get.find<ProfileController>();
@@ -27,6 +27,10 @@ class StatusController extends GetxController {
   @override
   void onInit() {
     super.onInit();
+    fetchAllStatus();
+  }
+
+  void fetchAllStatus() {
     ever(profileController.userProfile, (UserProfile? userProfile) {
       if (userProfile != null) {
         fetchFollowingProfiles(userProfile.following!);

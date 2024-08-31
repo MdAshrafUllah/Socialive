@@ -2,11 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:socialive/app/utility/app_colors.dart';
 import 'package:socialive/app/utility/app_font_style.dart';
-import 'package:socialive/presentation/controllers/following_followers_list_screen_controller.dart';
+import 'package:socialive/presentation/controllers/navigation/profile/following_followers_list_screen_controller.dart';
 
 Widget followingFollowerSelectionSection() {
-  return GetBuilder<FollowingFollowersListScreenController>(
-      builder: (controller) {
+  return GetBuilder<FollowingFollowersListController>(builder: (controller) {
     return Row(
       children: [
         GestureDetector(
