@@ -5,6 +5,7 @@ import 'package:get/get.dart';
 import 'package:socialive/app/utility/app_colors.dart';
 import 'package:socialive/presentation/controllers/widget/loading_controller.dart';
 import 'package:socialive/presentation/ui/screens/auth/login_screen.dart';
+import 'package:socialive/presentation/ui/utility/assets_path.dart';
 import 'package:socialive/presentation/ui/widgets/show_alert_dialog.dart';
 
 final LoadingController loadingController = Get.find<LoadingController>();
@@ -42,12 +43,11 @@ class SignUpController extends GetxController {
         'uid': uid,
         'name': name,
         'email': email,
-        'createdAt': FieldValue.serverTimestamp(),
-        'profileImage': '',
+        'createdAt': DateTime.now(),
+        'profileImage': AssetsPath.blankProfileImage,
         'userName': '',
         'following': [],
         'followers': [],
-        'posts': []
       });
 
       loadingController.hideLoading();

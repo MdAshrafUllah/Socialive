@@ -21,11 +21,17 @@ class AssetsPath {
   static String person = "$_basedURL/person.svg";
   static String notification = "$_basedURL/notification.svg";
   static String message = "$_basedURL/message.svg";
-  static String leftArrow = "$_basedURL/Left Arrow.svg";
+  static String leftArrow = "$_basedURL/Left_arrow.svg";
   static String camera = "$_basedURL/Camera.svg";
   static String gallery = "$_basedURL/Gallery.svg";
+  static String rightArrow = "$_basedURL/right_arrow.svg";
+  static String addImage = "$_basedURL/add_image.svg";
+  static String multipleSelect = "$_basedURL/multiple_select.svg";
+
   static const _basedURLImg = "assets/images";
+
   static String editProfile = "$_basedURLImg/edit_profile.png";
+  static String alert = "$_basedURLImg/alert.png";
   static String blankProfileImage =
-      "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png";
+      "https://ft.utms.edu.mk/images/2018/03/05/profile-placeholder.jpg";
 }

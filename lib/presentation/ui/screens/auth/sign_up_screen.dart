@@ -100,10 +100,13 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     suffixIcon: _signUpController.isPasswordCheckVisible.value
                         ? AssetsPath.eye
                         : AssetsPath.eyeSlash,
-                    textInputAction: TextInputAction.done,
+                    textInputAction: TextInputAction.go,
                     validator: "Enter Confirm Password",
                     onTap: () {
                       _signUpController.togglePasswordCheckVisible();
+                    },
+                    onFieldSubmitted: (value) {
+                      _signUpController.signUp;
                     },
                   ),
                 ),

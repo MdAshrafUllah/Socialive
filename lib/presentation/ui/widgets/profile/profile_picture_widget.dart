@@ -4,7 +4,7 @@ import 'package:get/get.dart';
 
 import 'package:socialive/app/utility/app_colors.dart';
 import 'package:socialive/presentation/controllers/navigation/home/status_controller.dart';
-import 'package:socialive/presentation/controllers/navigation/profile_screen_controller.dart';
+import 'package:socialive/presentation/controllers/navigation/profile/profile_screen_controller.dart';
 
 final ProfileController profileController = Get.find<ProfileController>();
 final StatusController _statusController = Get.find<StatusController>();

@@ -3,6 +3,7 @@ import 'package:socialive/app/utility/app_colors.dart';
 
 ThemeData lightThemeDataStyle() {
   return ThemeData(
+    useMaterial3: true,
     colorScheme: ColorScheme.fromSeed(seedColor: AppColors.primaryColor),
     elevatedButtonTheme: ElevatedButtonThemeData(
       style: ElevatedButton.styleFrom(

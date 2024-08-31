@@ -1,5 +1,7 @@
 import 'package:get/get.dart';
-import 'package:socialive/presentation/controllers/navigation/profile_screen_controller.dart';
+import 'package:socialive/presentation/controllers/navigation/profile/profile_screen_controller.dart';
+import 'package:socialive/presentation/ui/screens/navigation/images_selection_screen.dart';
+import 'package:socialive/presentation/ui/widgets/upload_image_dialog.dart';
 
 class MainBottomNavigationController extends GetxController {
   final ProfileController profileController = Get.put(ProfileController());
@@ -16,7 +18,10 @@ class MainBottomNavigationController extends GetxController {
 
   void onItemTapped(int index) {
     if (index == 2) {
-      // showUploadImageDialog();
+      showUploadImageDialog(
+        fromCamera: () {},
+        fromGallery: () => Get.off(() => const ImagesSelectionScreen()),
+      );
     } else {
       selectedIndex.value = index;
     }

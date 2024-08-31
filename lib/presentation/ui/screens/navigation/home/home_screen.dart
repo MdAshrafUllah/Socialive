@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:socialive/app/utility/app_colors.dart';
 import 'package:socialive/presentation/controllers/navigation/home/post_controller.dart';
 import 'package:socialive/presentation/controllers/navigation/home/status_controller.dart';
+import 'package:socialive/presentation/controllers/navigation/profile/profile_screen_controller.dart';
 import 'package:socialive/presentation/ui/screens/welcome_screen.dart';
 import 'package:socialive/presentation/ui/utility/assets_path.dart';
 import 'package:socialive/presentation/ui/widgets/app_logo.dart';
@@ -22,15 +23,19 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  final StatusController _statusController = Get.find<StatusController>();
-  final PostController _postController = Get.find<PostController>();
+  final _statusController = Get.find<StatusController>();
+  final _postController = Get.find<PostController>();
+  final _profileController = Get.find<ProfileController>();
   @override
   Widget build(BuildContext context) {
     double height = MediaQuery.of(context).size.height;
     return Scaffold(
         backgroundColor: AppColors.textLightColor.withOpacity(0.2),
         body: RefreshIndicator(
-          onRefresh: () async {},
+          onRefresh: () async {
+            _statusController.fetchAllStatus();
+            _postController.fetchAllPosts();
+          },
           triggerMode: RefreshIndicatorTriggerMode.onEdge,
           child: SingleChildScrollView(
             child: Column(
@@ -55,8 +60,8 @@ class _HomeScreenState extends State<HomeScreen> {
                             GestureDetector(
                                 onTap: () async {
                                   /// to logout for testing purposes
-                                  deleteCacheDir();
-                                  deleteAppDir();
+                                  AppDataClear.deleteCacheDir();
+                                  AppDataClear.deleteAppDir();
                                   await FirebaseAuth.instance.signOut();
                                   Get.offAll(() => const WelComeScreen());
                                 },
@@ -122,6 +127,8 @@ class _HomeScreenState extends State<HomeScreen> {
                           return noMorePosts();
                         } else {
                           return PostWidget(
+                            currentUserId: _profileController.uid,
+                            postUserId: _postController.posts[index].postUserId,
                             profileImage:
                                 _postController.posts[index].profileImage,
                             name: _postController.posts[index].name,
@@ -132,6 +139,7 @@ class _HomeScreenState extends State<HomeScreen> {
                             commentCount:
                                 _postController.posts[index].comments.length,
                             likeCount: _postController.posts[index].likeCount,
+                            postId: _postController.posts[index].postId,
                           );
                         }
                       },

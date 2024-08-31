@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:socialive/app/utility/app_colors.dart';
-import 'package:socialive/presentation/controllers/navigation/profile_screen_controller.dart';
+import 'package:socialive/presentation/controllers/navigation/profile/profile_screen_controller.dart';
 import 'package:socialive/presentation/ui/utility/assets_path.dart';
 import 'package:socialive/presentation/ui/widgets/profile/list_view_widget.dart';
 
@@ -27,7 +27,7 @@ Widget gridOrListViewSelectorSection(Size deviceSize) {
       }),
       Divider(
         height: 1,
-        color: AppColors.secondaryColor.withOpacity(0.3),
+        color: AppColors.textLightColor.withOpacity(0.8),
         thickness: 1,
         indent: 1,
         endIndent: 1,

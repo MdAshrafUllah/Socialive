@@ -5,11 +5,13 @@ class PostsModel {
   final String profileImage;
   final String name;
   final String userName;
-  final String postImage;
+  final List<String> postImage;
   final String postDescription;
   final List<CommentModel> comments;
   final int likeCount;
   final DateTime postTime;
+  final String postId;
+  final String postUserId;
 
   PostsModel({
     required this.profileImage,
@@ -20,14 +22,18 @@ class PostsModel {
     required this.comments,
     required this.likeCount,
     required this.postTime,
+    required this.postId,
+    required this.postUserId,
   });
 
   factory PostsModel.fromFirestore(Map<String, dynamic> map) {
     return PostsModel(
+      postId: map['postId'] as String,
+      postUserId: map['postUserId'] as String,
       profileImage: map['profileImage'] as String,
       name: map['name'] as String,
       userName: map['userName'] as String,
-      postImage: map['postImage'] as String,
+      postImage: map['postImage'] as List<String>,
       postDescription: map['postDescription'] as String,
       comments: (map['commentCount'] as List)
           .map((comment) =>
@@ -40,6 +46,8 @@ class PostsModel {
 
   Map<String, dynamic> toMap() {
     return <String, dynamic>{
+      'postId': postId,
+      'postUserId': postUserId,
       'profileImage': profileImage,
       'name': name,
       'userName': userName,

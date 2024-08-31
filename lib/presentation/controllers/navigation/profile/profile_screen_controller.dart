@@ -5,8 +5,8 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:socialive/Data/models/user_profile_model.dart';
 import 'package:socialive/app/utility/app_colors.dart';
-import 'package:socialive/presentation/controllers/edit_profile_screen_controller.dart';
-import 'package:socialive/presentation/ui/screens/edit_profile_screen.dart';
+import 'package:socialive/presentation/controllers/navigation/profile/edit_profile_screen_controller.dart';
+import 'package:socialive/presentation/ui/screens/navigation/profile/edit_profile_screen.dart';
 import 'package:socialive/presentation/ui/utility/assets_path.dart';
 import 'package:socialive/presentation/ui/widgets/loading_widget.dart';
 import 'package:socialive/presentation/ui/widgets/show_alert_dialog.dart';
@@ -18,6 +18,7 @@ class ProfileController extends GetxController {
   RxBool showIncompleteProfileDialog = false.obs;
   String uid = '';
   Rx<UserProfile?> userProfile = Rx<UserProfile?>(null);
+  RxInt postsCount = 0.obs;
 
   bool isGridViewSelected = true;
 
@@ -31,7 +32,17 @@ class ProfileController extends GetxController {
     await _getUserUid();
     if (uid.isNotEmpty) {
       _checkUserProfile();
+      getPostsLength();
     }
+  }
+
+  void getPostsLength() {
+    final usersRef = FirebaseFirestore.instance.collection('users');
+    final postsRef = usersRef.doc(uid).collection('posts');
+
+    postsRef.snapshots().listen((snapshot) {
+      postsCount.value = snapshot.docs.length;
+    });
   }
 
   void clickOnGridView() {
@@ -110,7 +121,9 @@ class ProfileController extends GetxController {
             : _editProfileController.nameController.text,
         'userName': _editProfileController.userNameController.text.isEmpty
             ? userProfile.value!.userName
-            : _editProfileController.userNameController.text.toLowerCase(),
+            : _editProfileController.userNameController.text
+                .toLowerCase()
+                .replaceAll(' ', ''),
         'profileImage': imageUrl,
       });
 

@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:socialive/app/utility/app_colors.dart';
-import 'package:socialive/presentation/controllers/following_followers_list_screen_controller.dart';
-import 'package:socialive/presentation/ui/widgets/back_button_with_tittle.dart';
+import 'package:socialive/presentation/controllers/navigation/profile/following_followers_list_screen_controller.dart';
+import 'package:socialive/presentation/ui/utility/assets_path.dart';
+import 'package:socialive/presentation/ui/widgets/custom_app_bar.dart';
 import 'package:socialive/presentation/ui/widgets/followers_list_widget.dart';
 import 'package:socialive/presentation/ui/widgets/profile/follow_followers_switch_widget.dart';
 import 'package:socialive/presentation/ui/widgets/search_text_field_widget.dart';
@@ -22,7 +23,10 @@ class FollowingFollowerListScreen extends StatelessWidget {
         padding: const EdgeInsets.only(top: 16.0, left: 16, right: 16),
         child: Column(
           children: [
-            backButtonWithTittle(title: name!),
+            customAppBar(
+              title: name.toString(),
+              isBackButtonEnable: true,
+            ),
             const SizedBox(height: 10),
             followingFollowerSelectionSection(),
             Divider(
@@ -35,7 +39,7 @@ class FollowingFollowerListScreen extends StatelessWidget {
             Expanded(
               child: Obx(() {
                 final followerListController =
-                    Get.find<FollowingFollowersListScreenController>();
+                    Get.find<FollowingFollowersListController>();
 
                 final usersList = followerListController.isFollowingScreen.value
                     ? followerListController.followingProfiles
@@ -62,6 +66,7 @@ class FollowingFollowerListScreen extends StatelessWidget {
                       isFollowing: isFollower,
                       onTap: () {
                         showAlertDialog(
+                            topIcons: Image.asset(AssetsPath.alert),
                             title:
                                 "Are you sure you want to ${isFollower ? 'unfollow' : 'follow'} ${user.name}?",
                             elevatedBtnName: isFollower ? "Unfollow" : "Follow",
