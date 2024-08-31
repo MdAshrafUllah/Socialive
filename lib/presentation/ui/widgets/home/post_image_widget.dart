@@ -5,6 +5,8 @@ import 'package:get/get.dart';
 import 'package:socialive/app/utility/app_colors.dart';
 import 'package:socialive/presentation/controllers/timeline_post_image_controller.dart';
 
+import 'package:socialive/presentation/ui/widgets/carousel_indicator_widget.dart';
+
 class TimelinePostImage extends StatelessWidget {
   final List<String> postImage;
   final controller = Get.find<TimelinePostController>();
@@ -50,37 +52,9 @@ class TimelinePostImage extends StatelessWidget {
                   ),
                 ),
                 if (postImage.length > 1)
-                  Obx(() => Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: postImage.map((url) {
-                          int index = postImage.indexOf(url);
-                          return Padding(
-                            padding: const EdgeInsets.symmetric(
-                                horizontal: 2, vertical: 10),
-                            child: Container(
-                              width: 12,
-                              height: 12,
-                              decoration: BoxDecoration(
-                                shape: BoxShape.circle,
-                                border:
-                                    Border.all(color: AppColors.primaryColor),
-                                color: controller.currentIndex.value == index
-                                    ? AppColors.primaryColor
-                                    : AppColors.transparentColor,
-                              ),
-                              child: Container(
-                                width: 10,
-                                height: 10,
-                                decoration: BoxDecoration(
-                                  shape: BoxShape.circle,
-                                  border: Border.all(
-                                    color: AppColors.foregroundColor,
-                                  ),
-                                ),
-                              ),
-                            ),
-                          );
-                        }).toList(),
+                  Obx(() => SliderPointIndicator(
+                        itemCount: postImage.length,
+                        currentIndex: controller.currentIndex.value,
                       )),
               ],
             ),

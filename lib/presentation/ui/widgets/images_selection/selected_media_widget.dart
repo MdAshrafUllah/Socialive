@@ -3,8 +3,8 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:photo_manager/photo_manager.dart';
-import 'package:socialive/app/utility/app_colors.dart';
 import 'package:socialive/presentation/controllers/images_selection_controller.dart';
+import 'package:socialive/presentation/ui/widgets/carousel_indicator_widget.dart';
 import 'package:socialive/presentation/ui/widgets/images_selection/empty_media_widget.dart';
 
 class SelectedMediaWidget extends StatelessWidget {
@@ -32,6 +32,7 @@ class SelectedMediaWidget extends StatelessWidget {
         );
       } else {
         return Stack(
+          alignment: Alignment.bottomCenter,
           children: [
             CarouselSlider(
               items: uploadContentController.selectedMedia.map((media) {
@@ -59,51 +60,10 @@ class SelectedMediaWidget extends StatelessWidget {
               ),
             ),
             if (uploadContentController.selectedMedia.length > 1)
-              Align(
-                alignment: Alignment.bottomCenter,
-                child: Container(
-                  height: 40,
-                  width: MediaQuery.of(context).size.width,
-                  padding: const EdgeInsets.symmetric(vertical: 10),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      for (int i = 0;
-                          i < uploadContentController.selectedMedia.length;
-                          i++)
-                        Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 2),
-                          child: Obx(() {
-                            return Container(
-                              height: 12,
-                              width: 12,
-                              decoration: BoxDecoration(
-                                shape: BoxShape.circle,
-                                border:
-                                    Border.all(color: AppColors.primaryColor),
-                                color: uploadContentController
-                                            .currentIndex.value ==
-                                        i
-                                    ? AppColors.primaryColor
-                                    : AppColors.transparentColor,
-                              ),
-                              child: Container(
-                                height: 10,
-                                width: 10,
-                                decoration: BoxDecoration(
-                                  shape: BoxShape.circle,
-                                  border: Border.all(
-                                    color: AppColors.foregroundColor,
-                                  ),
-                                ),
-                              ),
-                            );
-                          }),
-                        ),
-                    ],
-                  ),
-                ),
-              ),
+              Obx(() => SliderPointIndicator(
+                    currentIndex: uploadContentController.currentIndex.value,
+                    itemCount: uploadContentController.selectedMedia.length,
+                  ))
           ],
         );
       }
