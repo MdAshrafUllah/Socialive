@@ -113,7 +113,7 @@ class PostWidget extends StatelessWidget {
                     ),
                 ],
               ),
-              timelinePostImage(postImage: postImage[0]),
+              TimelinePostImage(postImage: postImage),
               postDescription.isNotEmpty
                   ? ExpandableText(
                       text: postDescription,
