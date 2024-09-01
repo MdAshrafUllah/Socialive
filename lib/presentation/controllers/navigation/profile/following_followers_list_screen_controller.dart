@@ -103,8 +103,6 @@ class FollowingFollowersListController extends GetxController {
           .update({
         'following': FieldValue.arrayRemove([uid])
       });
-      _statusController.fetchAllStatus();
-      _postsController.fetchAllPosts();
     } else {
       FirebaseFirestore.instance
           .collection('users')
@@ -112,8 +110,8 @@ class FollowingFollowersListController extends GetxController {
           .update({
         'following': FieldValue.arrayUnion([uid])
       });
-      _statusController.fetchAllStatus();
-      _postsController.fetchAllPosts();
     }
+    _statusController.fetchAllStatus();
+    _postsController.fetchAllPosts();
   }
 }
