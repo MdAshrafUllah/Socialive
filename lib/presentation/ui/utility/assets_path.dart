@@ -27,6 +27,7 @@ class AssetsPath {
   static String rightArrow = "$_basedURL/right_arrow.svg";
   static String addImage = "$_basedURL/add_image.svg";
   static String multipleSelect = "$_basedURL/multiple_select.svg";
+  static String logout = "$_basedURL/logout.svg";
 
   static const _basedURLImg = "assets/images";
 

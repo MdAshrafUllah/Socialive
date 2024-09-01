@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:socialive/app/utility/app_colors.dart';
 import 'package:socialive/presentation/controllers/navigation/home/post_controller.dart';
@@ -58,17 +59,20 @@ class _HomeScreenState extends State<HomeScreen> {
                             const AppLogo(),
                             const Spacer(),
                             GestureDetector(
+                                onTap: () {},
+                                child: iconWithBG(
+                                    imgPath: AssetsPath.notification)),
+                            const SizedBox(width: 10),
+                            iconWithBG(imgPath: AssetsPath.message),
+                            const SizedBox(width: 10),
+                            GestureDetector(
                                 onTap: () async {
-                                  /// to logout for testing purposes
                                   AppDataClear.deleteCacheDir();
                                   AppDataClear.deleteAppDir();
                                   await FirebaseAuth.instance.signOut();
                                   Get.offAll(() => const WelComeScreen());
                                 },
-                                child: iconWithBG(
-                                    imgPath: AssetsPath.notification)),
-                            const SizedBox(width: 10),
-                            iconWithBG(imgPath: AssetsPath.message),
+                                child: iconWithBG(imgPath: AssetsPath.logout)),
                           ],
                         ),
                       ),
