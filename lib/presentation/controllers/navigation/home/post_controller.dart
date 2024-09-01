@@ -29,6 +29,8 @@ class PostController extends GetxController {
   }
 
   void fetchAllPosts() {
+    posts.clear();
+    currentUserAllPosts.clear();
     getCurrentUserPosts();
     getFollowingUsersPosts();
   }

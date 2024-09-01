@@ -64,7 +64,7 @@ class FollowingFollowerListScreen extends StatelessWidget {
                       profileImage: user.profileImage ?? '',
                       userName: "@${user.userName}",
                       isFollowing: isFollower,
-                      onTap: () {
+                      onFollowTap: () {
                         showAlertDialog(
                             topIcons: Image.asset(AssetsPath.alert),
                             title:
