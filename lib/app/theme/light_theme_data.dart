@@ -3,6 +3,7 @@ import 'package:socialive/app/utility/app_colors.dart';
 
 ThemeData lightThemeDataStyle() {
   return ThemeData(
+    useMaterial3: true,
     colorScheme: ColorScheme.fromSeed(seedColor: AppColors.primaryColor),
     elevatedButtonTheme: ElevatedButtonThemeData(
       style: ElevatedButton.styleFrom(
@@ -18,6 +19,26 @@ ThemeData lightThemeDataStyle() {
       style: TextButton.styleFrom(
         foregroundColor: AppColors.primaryColor,
         splashFactory: NoSplash.splashFactory,
+      ),
+    ),
+    inputDecorationTheme: InputDecorationTheme(
+      enabledBorder: OutlineInputBorder(
+        borderSide:
+            BorderSide(color: AppColors.inputFieldBorderColor, width: 1),
+        borderRadius: BorderRadius.circular(8),
+      ),
+      border: OutlineInputBorder(
+        borderSide:
+            BorderSide(color: AppColors.inputFieldBorderColor, width: 1),
+        borderRadius: BorderRadius.circular(8),
+      ),
+      focusedBorder: OutlineInputBorder(
+        borderSide: BorderSide(color: AppColors.primaryColor, width: 1),
+        borderRadius: BorderRadius.circular(8),
+      ),
+      errorBorder: OutlineInputBorder(
+        borderSide: BorderSide(color: AppColors.errorColor, width: 1),
+        borderRadius: BorderRadius.circular(8),
       ),
     ),
   );
