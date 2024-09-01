@@ -5,6 +5,7 @@ import 'package:socialive/presentation/controllers/navigation/home/post_controll
 import 'package:socialive/presentation/controllers/navigation/home/status_share_controller.dart';
 import 'package:socialive/presentation/controllers/images_selection_controller.dart';
 import 'package:socialive/presentation/controllers/navigation/search_screen_controller.dart';
+import 'package:socialive/presentation/controllers/others_screen_controller.dart';
 import 'package:socialive/presentation/controllers/share_content_controller.dart';
 import 'package:socialive/presentation/controllers/timeline_post_image_controller.dart';
 import 'package:socialive/presentation/controllers/widget/loading_controller.dart';
@@ -33,5 +34,6 @@ class ControllerBinder extends Bindings {
     Get.put(ShareContentController());
     Get.put(TimelinePostController());
     Get.put(SearchScreenController());
+    Get.put(OthersScreenController());
   }
 }

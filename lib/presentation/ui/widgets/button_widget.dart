@@ -66,3 +66,30 @@ Widget backBtn() {
     },
   );
 }
+
+Widget profileBtn(
+    {required String title,
+    bool isFollow = false,
+    required VoidCallback onTap}) {
+  return GestureDetector(
+    onTap: onTap,
+    child: Container(
+      decoration: BoxDecoration(
+        color: isFollow
+            ? AppColors.primaryColor
+            : AppColors.textLightColor.withOpacity(0.4),
+        borderRadius: BorderRadius.circular(5),
+      ),
+      child: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Text(
+          title,
+          style: AppFontStyle.satoshi700S14.copyWith(
+              color: isFollow
+                  ? AppColors.foregroundColor
+                  : AppColors.secondaryColor),
+        ),
+      ),
+    ),
+  );
+}
