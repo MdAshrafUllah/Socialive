@@ -6,6 +6,7 @@ Widget postListViewBuilder(List<String> posts) {
       child: Padding(
     padding: const EdgeInsets.only(top: 4),
     child: ListView.builder(
+      padding: const EdgeInsets.only(top: 0),
       itemBuilder: (context, index) {
         if (index == posts.length) {
           return const SizedBox(
@@ -31,6 +32,7 @@ Widget postGridViewBuilder(List<String> posts) {
       child: Padding(
     padding: const EdgeInsets.only(top: 8),
     child: GridView.custom(
+      padding: const EdgeInsets.only(top: 0),
       gridDelegate: SliverQuiltedGridDelegate(
         crossAxisCount: 4,
         mainAxisSpacing: 10,

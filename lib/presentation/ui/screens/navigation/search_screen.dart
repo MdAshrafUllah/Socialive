@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:socialive/presentation/controllers/navigation/profile/following_followers_list_screen_controller.dart';
 import 'package:socialive/presentation/controllers/navigation/profile/profile_screen_controller.dart';
 import 'package:socialive/presentation/controllers/navigation/search_screen_controller.dart';
+import 'package:socialive/presentation/ui/screens/others_screens.dart';
 import 'package:socialive/presentation/ui/utility/assets_path.dart';
 import 'package:socialive/presentation/ui/widgets/followers_list_widget.dart';
 import 'package:socialive/presentation/ui/widgets/search_text_field_widget.dart';
@@ -66,6 +67,14 @@ class _SearchScreenState extends State<SearchScreen> {
                       profileImage: user.profileImage ?? '',
                       userName: "@${user.userName}",
                       isFollowing: isFollowing,
+                      onCardTap: () {
+                        Get.to(() => OtherUsersScreen(
+                              name: user.name ?? '',
+                              profileImage: user.profileImage ?? '',
+                              isFollowing: isFollowing,
+                              uid: user.uid ?? '',
+                            ));
+                      },
                       onFollowTap: () {
                         showAlertDialog(
                           topIcons: Image.asset(AssetsPath.alert),
